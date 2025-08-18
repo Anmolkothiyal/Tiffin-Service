@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YTS - Yaani Tiffin Services</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <h1>YTS</h1>
+          <span>YAANI TIFFIN SERVICES</span>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="plans.html">Plans & Menu</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="admin.html" class="admin-link">Admin</a></li>
+        </ul>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Fresh, Authentic Indian Meals</h1>
+        <p>Delivered to Your Doorstep</p>
+        <div class="hero-buttons">
+          <a href="tel:+18678882293" class="btn btn-primary">
+            <i class="fas fa-phone"></i> Call Now
+          </a>
+          <a href="https://wa.me/18678882293" class="btn btn-secondary">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="images/hero-image.jpg" alt="Delicious Tiffin">
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Offers -->
+  <section class="featured-offers">
+    <div class="container">
+      <div class="offer-cards">
+        <div class="offer-card featured">
+          <h3>GET 5 TIFFINS FREE WITH KING'S FEAST DELUXE</h3>
+          <p>5 Roti • 3 Curries • 1 Rice • 1 Salad</p>
+          <div class="price">$229</div>
+          <a href="tel:+18678882293" class="btn btn-primary">Order Now</a>
+        </div>
+        <div class="offer-card">
+          <h3>Mini Meal Special</h3>
+          <p>Big on Taste. Light on the Pocket.</p>
+          <div class="price">$169</div>
+          <a href="tel:+18678882293" class="btn btn-primary">Order Now</a>
+        </div>
+        <div class="offer-card premium">
+          <h3>SAFFRON DELIGHT</h3>
+          <p>7 Roti • 3 Curries • 1 Rice • 1 Salad</p>
+          <div class="price">$245</div>
+          <a href="tel:+18678882293" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose YTS -->
+  <section class="why-choose" id="about">
+    <div class="container">
+      <h2>Why Choose YTS?</h2>
+      <p>Experience the perfect blend of authentic flavors, convenience, and quality</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <h3>Authentic Recipes</h3>
+          <p>Traditional Indian recipes prepared with love and authentic spices</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Fresh Daily</h3>
+          <p>Meals prepared fresh every day with the finest ingredients</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <h3>Free Delivery</h3>
+          <p>Complimentary delivery throughout the Greater Toronto Area</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h3>Quality Assured</h3>
+          <p>Premium quality meals that exceed your expectations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Meals -->
+  <section class="popular-meals" id="meals">
+    <div class="container">
+      <h2>Our Popular Meals</h2>
+      <p>From mini meals to royal feasts, we have something for everyone</p>
+      <div class="meals-grid" id="meals-container">
+        <!-- Meals will be loaded from JSON -->
+      </div>
+      <div class="view-all">
+        <a href="plans.html" class="btn btn-primary">View All Plans & Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Choose Your Plan</h3>
+          <p>Select from our variety of meal plans that suit your appetite and budget</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Place Your Order</h3>
+          <p>Call us or WhatsApp to place your order and confirm delivery details</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Fresh Delivery</h3>
+          <p>Enjoy hot, fresh meals delivered to your doorstep daily</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <h2>What Our Customers Say</h2>
+      <p>Don't just take our word for it</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p>"Best tiffin service in Toronto! The food tastes just like home-cooked meals."</p>
+          <div class="customer">
+            <strong>Priya Sharma</strong>
+            <span>Mississauga</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p>"Amazing variety and always fresh. My family loves the King's Feast!"</p>
+          <div class="customer">
+            <strong>Raj Patel</strong>
+            <span>Brampton</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p>"Perfect portion sizes and great value for money. Highly recommended!"</p>
+          <div class="customer">
+            <strong>Meera Singh</strong>
+            <span>Scarborough</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <h2>Ready to Experience Authentic Flavors?</h2>
+      <p>Call us now and taste the difference!</p>
+      <div class="cta-buttons">
+        <a href="tel:+18678882293" class="btn btn-primary large">
+          <i class="fas fa-phone"></i> Call Now: +1 867 888 2293
+        </a>
+        <a href="https://wa.me/18678882293" class="btn btn-secondary large">
+          <i class="fab fa-whatsapp"></i> WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>YTS YAANI TIFFIN SERVICES</h3>
+          <p>Fresh, healthy, and affordable Indian meals delivered to your doorstep. Experience authentic flavors with
+            the convenience of modern delivery.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="plans.html">Plans & Menu</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <div class="contact-info">
+            <p><i class="fas fa-phone"></i> <a href="tel:+18678882293">+1 867 888 2293</a></p>
+            <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/18678882293">WhatsApp</a></p>
+            <p><i class="fas fa-map-marker-alt"></i> Throughout GTA</p>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Business Hours</h4>
+          <p><i class="fas fa-clock"></i> Mon - Sun 8:00 AM - 10:00 PM</p>
+          <p><strong>Free Delivery Throughout GTA!</strong></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Yaani Tiffin Services. All rights reserved. | Made with ❤️ for authentic Indian cuisine lovers.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

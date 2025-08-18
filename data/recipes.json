@@ -1,0 +1,150 @@
+{
+  "meals": [
+    {
+      "id": 1,
+      "name": "Mini Meal",
+      "price": 159,
+      "originalPrice": 169,
+      "description": "Perfect for light appetite with authentic flavors",
+      "components": {
+        "rotis": 3,
+        "curries": 2,
+        "rice": 0,
+        "salad": 1
+      },
+      "image": "/images/mini-meal.jpg",
+      "category": "budget",
+      "popular": false,
+      "stockLeft": 50
+    },
+    {
+      "id": 2,
+      "name": "King's Feast",
+      "price": 199,
+      "originalPrice": null,
+      "description": "Our most popular meal with generous portions and variety",
+      "components": {
+        "rotis": 5,
+        "curries": 2,
+        "rice": 1,
+        "salad": 1
+      },
+      "image": "/images/kings-feast.jpg",
+      "category": "popular",
+      "popular": true,
+      "stockLeft": 30
+    },
+    {
+      "id": 3,
+      "name": "King's Feast Deluxe",
+      "price": 229,
+      "originalPrice": null,
+      "description": "Enhanced version of our popular feast with extra curries",
+      "components": {
+        "rotis": 5,
+        "curries": 3,
+        "rice": 1,
+        "salad": 1
+      },
+      "image": "/images/kings-feast-deluxe.jpg",
+      "category": "premium",
+      "popular": true,
+      "stockLeft": 25
+    },
+    {
+      "id": 4,
+      "name": "Saffron Delight",
+      "price": 239,
+      "originalPrice": 245,
+      "description": "Premium feast with exotic flavors and premium ingredients",
+      "components": {
+        "rotis": 7,
+        "curries": 3,
+        "rice": 1,
+        "salad": 1
+      },
+      "image": "/images/saffron-delight.jpg",
+      "category": "premium",
+      "popular": false,
+      "stockLeft": 20
+    },
+    {
+      "id": 5,
+      "name": "New Meal",
+      "price": 123,
+      "description": "dfasdf f sadfas fa sdfa",
+      "components": {
+        "rotis": 1,
+        "curries": 3,
+        "rice": 1,
+        "salad": 3
+      },
+      "image": "/images/mini-meal.jpg",
+      "category": "budget",
+      "popular": false,
+      "stockLeft": 50
+    },
+    {
+      "id": 6,
+      "name": "New Meal",
+      "price": 200,
+      "description": "fsdfasdfsadfa",
+      "components": {
+        "rotis": 0,
+        "curries": 1,
+        "rice": 1,
+        "salad": 1
+      },
+      "image": "/uploads/meal-1755535416584.jpg",
+      "category": "budget",
+      "popular": true,
+      "stockLeft": 200
+    }
+  ],
+  "featuredOffers": [
+    {
+      "id": "offer-1",
+      "title": "GET 5 TIFFINS FREE WITH KING'S FEAST DELUXE",
+      "description": "5 Roti • 3 Curries • 1 Rice • 1 Salad",
+      "price": 229,
+      "featured": true
+    },
+    {
+      "id": "offer-2",
+      "title": "Mini Meal Special",
+      "description": "Big on Taste. Light on the Pocket.",
+      "price": 169,
+      "featured": false
+    },
+    {
+      "id": "offer-3",
+      "title": "SAFFRON DELIGHT",
+      "description": "7 Roti • 3 Curries • 1 Rice • 1 Salad",
+      "price": 245,
+      "featured": false
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Priya Sharma",
+      "location": "Mississauga",
+      "rating": 5,
+      "review": "Best tiffin service in Toronto! The food tastes just like home-cooked meals."
+    },
+    {
+      "id": 2,
+      "name": "Raj Patel",
+      "location": "Brampton",
+      "rating": 5,
+      "review": "Amazing variety and always fresh. My family loves the King's Feast!"
+    },
+    {
+      "id": 3,
+      "name": "Meera Singh",
+      "location": "Scarborough",
+      "rating": 5,
+      "review": "Perfect portion sizes and great value for money. Highly recommended!"
+    }
+  ]
+}

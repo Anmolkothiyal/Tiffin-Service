@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <!-- Background with rounded corners for iOS -->
+  <rect width="180" height="180" fill="#f97316" rx="40"/>
+  
+  <!-- Main tiffin container -->
+  <rect x="30" y="60" width="120" height="60" rx="8" fill="#ffffff" opacity="0.95"/>
+  <rect x="30" y="120" width="120" height="30" rx="4" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Handle -->
+  <rect x="70" y="40" width="40" height="15" rx="7" fill="#ffffff"/>
+  
+  <!-- Food representation - three curry portions -->
+  <circle cx="60" cy="90" r="8" fill="#f97316"/>
+  <circle cx="90" cy="90" r="8" fill="#f97316"/>
+  <circle cx="120" cy="90" r="8" fill="#f97316"/>
+  
+  <!-- Small rice representation -->
+  <rect x="45" y="130" width="20" height="8" rx="4" fill="#f97316"/>
+  <rect x="75" y="130" width="30" height="8" rx="4" fill="#f97316"/>
+  <rect x="115" y="130" width="20" height="8" rx="4" fill="#f97316"/>
+</svg>

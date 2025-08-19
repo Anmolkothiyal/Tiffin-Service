@@ -83,22 +83,6 @@
       "category": "budget",
       "popular": false,
       "stockLeft": 50
-    },
-    {
-      "id": 6,
-      "name": "New Meal",
-      "price": 200,
-      "description": "fsdfasdfsadfa",
-      "components": {
-        "rotis": 0,
-        "curries": 1,
-        "rice": 1,
-        "salad": 1
-      },
-      "image": "/uploads/meal-1755535416584.jpg",
-      "category": "budget",
-      "popular": true,
-      "stockLeft": 200
     }
   ],
   "featuredOffers": [

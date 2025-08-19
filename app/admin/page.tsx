@@ -38,7 +38,7 @@ export default function AdminPage() {
   const [imageUploadMethod, setImageUploadMethod] = useState<"upload" | "url">(
     "upload"
   );
- const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [newComponentName, setNewComponentName] = useState("");
   const [newComponentQuantity, setNewComponentQuantity] = useState(0);
@@ -229,8 +229,7 @@ export default function AdminPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700"
-                >
+                  className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700">
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
@@ -261,22 +260,22 @@ export default function AdminPage() {
             <button
               onClick={saveMeals}
               disabled={isLoading}
-              className="btn btn-primary"
-            >
+              className="btn btn-primary">
               <Save className="w-4 h-4" />
               {isLoading ? "Saving..." : "Save Changes"}
             </button>
             <button
               onClick={() => setIsAuthenticated(false)}
-              className="btn btn-outline"
-            >
+              className="btn btn-outline">
               Logout
             </button>
           </div>
         </div>
         <div className="grid gap-4">
           {meals.map((meal) => (
-            <div key={meal.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+            <div
+              key={meal.id}
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
               <div className="p-5">
                 {/* Header Section with Image and Title */}
                 <div className="flex justify-between items-start mb-4">
@@ -307,46 +306,53 @@ export default function AdminPage() {
                         )}
                       </div>
                       <div className="flex items-center gap-3 mb-2">
-                        <p className="text-xl font-bold text-green-600">₹{meal.price}</p>
+                        <p className="text-xl font-bold text-green-600">
+                          ₹{meal.price}
+                        </p>
                         <div className="flex items-center gap-1.5 text-sm">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                            meal.category === 'premium' 
-                              ? 'bg-purple-100 text-purple-800 border border-purple-200'
-                              : meal.category === 'popular' 
-                              ? 'bg-blue-100 text-blue-800 border border-blue-200'
-                              : 'bg-green-100 text-green-800 border border-green-200'
-                          }`}>
-                            {meal.category.charAt(0).toUpperCase() + meal.category.slice(1)}
+                          <span
+                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                              meal.category === "premium"
+                                ? "bg-purple-100 text-purple-800 border border-purple-200"
+                                : meal.category === "popular"
+                                ? "bg-blue-100 text-blue-800 border border-blue-200"
+                                : "bg-green-100 text-green-800 border border-green-200"
+                            }`}>
+                            {meal.category.charAt(0).toUpperCase() +
+                              meal.category.slice(1)}
                           </span>
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                            meal.stockLeft > 10 
-                              ? 'bg-green-100 text-green-800'
-                              : meal.stockLeft > 0 
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-red-100 text-red-800'
-                          }`}>
+                          <span
+                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                              meal.stockLeft > 10
+                                ? "bg-green-100 text-green-800"
+                                : meal.stockLeft > 0
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                            }`}>
                             {meal.stockLeft} left
                           </span>
                         </div>
                       </div>
                       {/* Description inline */}
-                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">{meal.description}</p>
+                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
+                        {meal.description}
+                      </p>
                     </div>
                   </div>
                   <div className="flex gap-1.5 flex-shrink-0">
                     <button
                       onClick={() => setEditingMeal(meal)}
                       className="p-2.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:shadow-md border border-transparent hover:border-blue-200"
-                      title="Edit meal"
-                    >
+                      title="Edit meal">
                       <Edit3 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => deleteMeal(meal.id)}
                       disabled={isDeleting === meal.id}
                       className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed border border-transparent hover:border-red-200"
-                      title={isDeleting === meal.id ? "Deleting..." : "Delete meal"}
-                    >
+                      title={
+                        isDeleting === meal.id ? "Deleting..." : "Delete meal"
+                      }>
                       {isDeleting === meal.id ? (
                         <div className="w-4 h-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent"></div>
                       ) : (
@@ -359,18 +365,24 @@ export default function AdminPage() {
                 {/* Components Section - More Compact */}
                 {Object.keys(meal.components).length > 0 && (
                   <div className="border-t pt-3">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Components</h4>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                      Components
+                    </h4>
                     <div className="flex flex-wrap gap-2">
-                      {Object.entries(meal.components).map(([name, quantity]) => (
-                        <div key={name} className="inline-flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md text-sm">
-                          <span className="text-gray-700 font-medium">
-                            {name.charAt(0).toUpperCase() + name.slice(1)}
-                          </span>
-                          <span className="font-bold text-gray-900 bg-white px-1.5 py-0.5 rounded text-xs">
-                            {quantity}
-                          </span>
-                        </div>
-                      ))}
+                      {Object.entries(meal.components).map(
+                        ([name, quantity]) => (
+                          <div
+                            key={name}
+                            className="inline-flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md text-sm">
+                            <span className="text-gray-700 font-medium">
+                              {name.charAt(0).toUpperCase() + name.slice(1)}
+                            </span>
+                            <span className="font-bold text-gray-900 bg-white px-1.5 py-0.5 rounded text-xs">
+                              {quantity}
+                            </span>
+                          </div>
+                        )
+                      )}
                     </div>
                   </div>
                 )}
@@ -388,8 +400,7 @@ export default function AdminPage() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   updateMeal(editingMeal);
-                }}
-              >
+                }}>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-gray-700 font-bold mb-2">
@@ -466,27 +477,32 @@ export default function AdminPage() {
                       type="button"
                       onClick={addComponent}
                       className="btn btn-secondary px-4"
-                      disabled={!newComponentName.trim() || newComponentQuantity < 0}
-                    >
+                      disabled={
+                        !newComponentName.trim() || newComponentQuantity < 0
+                      }>
                       <Plus className="w-4 h-4" />
                       Add
                     </button>
                   </div>
                   <ul className="ml-4">
-                    {Object.entries(editingMeal.components).map(([name, quantity]) => (
-                      <li key={name} className="flex justify-between items-center mb-1">
-                        <span>
-                          {name.charAt(0).toUpperCase() + name.slice(1)}: {quantity}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => removeComponent(name)}
-                          className="text-red-600 hover:text-red-800"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </li>
-                    ))}
+                    {Object.entries(editingMeal.components).map(
+                      ([name, quantity]) => (
+                        <li
+                          key={name}
+                          className="flex justify-between items-center mb-1">
+                          <span>
+                            {name.charAt(0).toUpperCase() + name.slice(1)}:{" "}
+                            {quantity}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => removeComponent(name)}
+                            className="text-red-600 hover:text-red-800">
+                            <X className="w-4 h-4" />
+                          </button>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
@@ -502,8 +518,7 @@ export default function AdminPage() {
                           category: e.target.value,
                         })
                       }
-                      className="w-full px-3 py-2 border rounded-lg"
-                    >
+                      className="w-full px-3 py-2 border rounded-lg">
                       <option value="budget">Budget</option>
                       <option value="popular">Popular</option>
                       <option value="premium">Premium</option>
@@ -636,8 +651,7 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={isUploadingImage || !imageUrl.trim()}
-                          className="btn btn-secondary px-4"
-                        >
+                          className="btn btn-secondary px-4">
                           {isUploadingImage ? (
                             <span>Processing...</span>
                           ) : (
@@ -692,8 +706,7 @@ export default function AdminPage() {
                               image: "",
                             })
                           }
-                          className="text-sm text-red-600 hover:text-red-800"
-                        >
+                          className="text-sm text-red-600 hover:text-red-800">
                           Clear & Use URL
                         </button>
                       </div>
@@ -720,8 +733,7 @@ export default function AdminPage() {
                   <button
                     type="button"
                     onClick={() => setEditingMeal(null)}
-                    className="btn btn-outline"
-                  >
+                    className="btn btn-outline">
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-primary">

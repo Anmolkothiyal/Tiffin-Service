@@ -2,8 +2,8 @@
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { Clock, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
-import { useState } from "react";
+import { Clock, Mail, MapPin, MessageCircle, Phone, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -14,11 +14,58 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  // Handle auto-close of popup
+  useEffect(() => {
+    if (submitStatus.type) {
+      const timer = setTimeout(() => {
+        setSubmitStatus({ type: null, message: '' });
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus.type]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you'd send this to your backend
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: data.message || 'Thank you for your message! We\'ll get back to you soon.'
+        });
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Something went wrong. Please try again.'
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -59,53 +106,51 @@ export default function ContactPage() {
     },
   ];
 
-const serviceAreas = [
-  "Premnagar",
-  "Sudhowala",
-  "Panditwari",
-  "Ballupur",
-  "Jakhan",
-  "Rajpur Road",
-  "Clement Town",
-  "Vasant Vihar",
-  "Patel Nagar",
-  "Araghar",
-  "Karanpur",
-  "Dalanwala",
-];
+  const serviceAreas = [
+    "Premnagar",
+    "Sudhowala",
+    "Panditwari",
+    "Ballupur",
+    "Jakhan",
+    "Rajpur Road",
+    "Clement Town",
+    "Vasant Vihar",
+    "Patel Nagar",
+    "Araghar",
+    "Karanpur",
+    "Dalanwala",
+  ];
 
-
-     const faqs = [
-     {
-       question: "Aapki delivery timing kya hai?",
-       answer:
-         "Hum daily lunch 11:00 AM - 2:00 PM aur dinner 6:00 PM - 9:00 PM ke beech tiffin deliver karte hain.",
-     },
-     {
-       question: "Order kitne time pehle dena chahiye?",
-       answer:
-         "Hum recommend karte hain ki aap apna order kam se kam 1 din pehle book karein. Lekin same-day orders bhi hum capacity ke hisaab se accept karte hain.",
-     },
-     {
-       question: "Kya aap special diet ke liye customize karte ho?",
-       answer:
-         "Bilkul! Hum vegetarian, vegan, less-oil, low-spice aur customized diet ke options provide karte hain. Bas order karte waqt batayein.",
-     },
-     {
-       question: "Agar mujhe order cancel karna ho toh?",
-       answer:
-         "Aap apna order delivery ke 12 ghante pehle tak cancel ya modify kar sakte hain aur full refund milega.",
-     },
-     {
-       question: "Kya events ya bulk orders ke liye tiffin mil sakta hai?",
-       answer:
-         "Haan, hum parties, functions, aur corporate orders ke liye catering provide karte hain. Kripya 2 din pehle hume contact karein.",
-     },
-   ];
-
+  const faqs = [
+    {
+      question: "Aapki delivery timing kya hai?",
+      answer:
+        "Hum daily lunch 11:00 AM - 2:00 PM aur dinner 6:00 PM - 9:00 PM ke beech tiffin deliver karte hain.",
+    },
+    {
+      question: "Order kitne time pehle dena chahiye?",
+      answer:
+        "Hum recommend karte hain ki aap apna order kam se kam 1 din pehle book karein. Lekin same-day orders bhi hum capacity ke hisaab se accept karte hain.",
+    },
+    {
+      question: "Kya aap special diet ke liye customize karte ho?",
+      answer:
+        "Bilkul! Hum vegetarian, vegan, less-oil, low-spice aur customized diet ke options provide karte hain. Bas order karte waqt batayein.",
+    },
+    {
+      question: "Agar mujhe order cancel karna ho toh?",
+      answer:
+        "Aap apna order delivery ke 12 ghante pehle tak cancel ya modify kar sakte hain aur full refund milega.",
+    },
+    {
+      question: "Kya events ya bulk orders ke liye tiffin mil sakta hai?",
+      answer:
+        "Haan, hum parties, functions, aur corporate orders ke liye catering provide karte hain. Kripya 2 din pehle hume contact karein.",
+    },
+  ];
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative">
       <Header />
 
       {/* Hero Section */}
@@ -158,6 +203,7 @@ const serviceAreas = [
               <h2 className="text-3xl font-bold text-gray-800 mb-6">
                 Send us a Message
               </h2>
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
@@ -169,7 +215,8 @@ const serviceAreas = [
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                       required
                     />
                   </div>
@@ -182,7 +229,8 @@ const serviceAreas = [
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                       required
                     />
                   </div>
@@ -197,7 +245,8 @@ const serviceAreas = [
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     required
                   />
                 </div>
@@ -210,7 +259,8 @@ const serviceAreas = [
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     required>
                     <option value="">Select a subject</option>
                     <option value="new-order">New Order Inquiry</option>
@@ -230,8 +280,9 @@ const serviceAreas = [
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    disabled={isSubmitting}
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="Tell us how we can help you..."
                     required
                   />
@@ -239,9 +290,19 @@ const serviceAreas = [
 
                 <button
                   type="submit"
-                  className="btn btn-primary w-full btn-large">
-                  <Send className="w-5 h-5" />
-                  Send Message
+                  disabled={isSubmitting}
+                  className="btn btn-primary w-full btn-large disabled:opacity-50 disabled:cursor-not-allowed">
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             </div>
@@ -352,6 +413,26 @@ const serviceAreas = [
           </div>
         </div>
       </section>
+
+      {/* Popup for Success/Error Messages */}
+      {submitStatus.type && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-in">
+          <div
+            className={`p-4 rounded-lg shadow-lg flex items-center space-x-3 max-w-sm ${
+              submitStatus.type === 'success'
+                ? 'bg-green-600 text-white'
+                : 'bg-red-600 text-white'
+            }`}
+          >
+            {submitStatus.type === 'success' ? (
+              <CheckCircle className="w-6 h-6 flex-shrink-0" />
+            ) : (
+              <AlertCircle className="w-6 h-6 flex-shrink-0" />
+            )}
+            <p className="text-sm">{submitStatus.message}</p>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </main>

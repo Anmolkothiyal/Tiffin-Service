@@ -2,11 +2,22 @@
 import { NextResponse } from "next/server";
 import pool from "@/app/lib/db";
 
-export const fetchCache = "force-no-store"; // <— prevents Data Cache
+// Force dynamic rendering - prevents all caching
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const revalidate = 0;
 
 export async function GET() {
+  // Add cache-busting query with timestamp
+  const timestamp = Date.now();
+  
   try {
-    const result = await pool.query("SELECT * FROM meals");
+    const result = await pool.query(`
+      SELECT *, '${timestamp}' as cache_buster 
+      FROM meals 
+      ORDER BY id
+    `);
+    
     const meals = result.rows.map((row) => ({
       id: row.id,
       name: row.name,
@@ -20,13 +31,19 @@ export async function GET() {
       stockLeft: row.stock_left,
     }));
 
-    return NextResponse.json(
-      { meals },
+    return new NextResponse(
+      JSON.stringify({ 
+        meals,
+        timestamp,
+        cacheBuster: Math.random() 
+      }),
       {
+        status: 200,
         headers: {
-          "Cache-Control": "no-store, max-age=0",
-          "CDN-Cache-Control": "no-store, max-age=0",
-          "Vercel-CDN-Cache-Control": "no-store, max-age=0",
+          'Content-Type': 'application/json',
+          'Cache-Control': 'private, no-cache, no-store, must-revalidate, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0'
         },
       }
     );
@@ -34,14 +51,7 @@ export async function GET() {
     console.error("Error fetching meals:", error);
     return NextResponse.json(
       { error: "Failed to load meals" },
-      {
-        status: 500,
-        headers: {
-          "Cache-Control": "no-store, max-age=0",
-          "CDN-Cache-Control": "no-store, max-age=0",
-          "Vercel-CDN-Cache-Control": "no-store, max-age=0",
-        },
-      }
+      { status: 500 }
     );
   }
 }

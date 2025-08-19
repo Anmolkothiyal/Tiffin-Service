@@ -55,3 +55,50 @@ export async function GET() {
     );
   }
 }
+
+export async function DELETE(request : any) {
+  try {
+    // Get meal ID from query params or request body
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    
+    if (!id) {
+      return NextResponse.json(
+        { error: "Meal ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Delete the meal from database
+    const result = await pool.query(
+      "DELETE FROM meals WHERE id = $1 RETURNING *",
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return NextResponse.json(
+        { error: "Meal not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { 
+        message: "Meal deleted successfully",
+        deletedMeal: result.rows[0]
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store, max-age=0",
+        },
+      }
+    );
+
+  } catch (error) {
+    console.error("Error deleting meal:", error);
+    return NextResponse.json(
+      { error: "Failed to delete meal" },
+      { status: 500 }
+    );
+  }
+}

@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Edit3,
   Eye,
@@ -14,10 +13,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-
 // Simple authentication - in production, use proper auth
 const ADMIN_PASSWORD = "admin123";
-
 interface Meal {
   id: number;
   name: string;
@@ -30,7 +27,6 @@ interface Meal {
   popular: boolean;
   stockLeft: number;
 }
-
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
@@ -38,6 +34,7 @@ export default function AdminPage() {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [editingMeal, setEditingMeal] = useState<Meal | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState<number | null>(null);
   const [imageUploadMethod, setImageUploadMethod] = useState<"upload" | "url">(
     "upload"
   );
@@ -45,7 +42,6 @@ export default function AdminPage() {
   const [imageUrl, setImageUrl] = useState("");
   const [newComponentName, setNewComponentName] = useState("");
   const [newComponentQuantity, setNewComponentQuantity] = useState(0);
-
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
@@ -55,7 +51,6 @@ export default function AdminPage() {
       alert("Invalid password");
     }
   };
-
   const loadMeals = async () => {
     try {
       const response = await fetch("/api/meals");
@@ -65,7 +60,6 @@ export default function AdminPage() {
       console.error("Failed to load meals:", error);
     }
   };
-
   const saveMeals = async () => {
     setIsLoading(true);
     try {
@@ -76,7 +70,6 @@ export default function AdminPage() {
         },
         body: JSON.stringify({ meals }),
       });
-
       if (response.ok) {
         alert("Meals updated successfully!");
       } else {
@@ -90,19 +83,46 @@ export default function AdminPage() {
     }
   };
 
+  // Updated delete function to use the API
+  const deleteMeal = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this meal?")) {
+      return;
+    }
+
+    setIsDeleting(id);
+    try {
+      const response = await fetch(`/api/meals?id=${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        // Remove the meal from local state
+        setMeals(meals.filter((m) => m.id !== id));
+        alert("Meal deleted successfully!");
+        console.log("Deleted meal:", result.deletedMeal);
+      } else {
+        const error = await response.json();
+        alert(`Failed to delete meal: ${error.error}`);
+      }
+    } catch (error) {
+      console.error("Error deleting meal:", error);
+      alert("Failed to delete meal. Please try again.");
+    } finally {
+      setIsDeleting(null);
+    }
+  };
+
   const handleImageUpload = async (file: File) => {
     setIsUploadingImage(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
-
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
-
       const result = await response.json();
-
       if (result.success) {
         return result.imageUrl;
       } else {
@@ -120,7 +140,6 @@ export default function AdminPage() {
       setIsUploadingImage(false);
     }
   };
-
   const handleImageUrl = async (url: string) => {
     setIsUploadingImage(true);
     try {
@@ -131,9 +150,7 @@ export default function AdminPage() {
         },
         body: JSON.stringify({ imageUrl: url }),
       });
-
       const result = await response.json();
-
       if (result.success) {
         return result.imageUrl;
       } else {
@@ -151,7 +168,6 @@ export default function AdminPage() {
       setIsUploadingImage(false);
     }
   };
-
   const addNewMeal = () => {
     const newMeal: Meal = {
       id: Math.max(...meals.map((m) => m.id), 0) + 1,
@@ -167,18 +183,10 @@ export default function AdminPage() {
     setMeals([...meals, newMeal]);
     setEditingMeal(newMeal);
   };
-
-  const deleteMeal = (id: number) => {
-    if (confirm("Are you sure you want to delete this meal?")) {
-      setMeals(meals.filter((m) => m.id !== id));
-    }
-  };
-
   const updateMeal = (updatedMeal: Meal) => {
     setMeals(meals.map((m) => (m.id === updatedMeal.id ? updatedMeal : m)));
     setEditingMeal(null);
   };
-
   const addComponent = () => {
     if (newComponentName.trim() && newComponentQuantity >= 0) {
       setEditingMeal({
@@ -192,7 +200,6 @@ export default function AdminPage() {
       setNewComponentQuantity(0);
     }
   };
-
   const removeComponent = (componentName: string) => {
     const { [componentName]: _, ...rest } = editingMeal!.components;
     setEditingMeal({
@@ -200,7 +207,6 @@ export default function AdminPage() {
       components: rest,
     });
   };
-
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -240,7 +246,6 @@ export default function AdminPage() {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container py-8">
@@ -269,7 +274,6 @@ export default function AdminPage() {
             </button>
           </div>
         </div>
-
         <div className="grid gap-6">
           {meals.map((meal) => (
             <div key={meal.id} className="bg-white rounded-lg shadow-lg p-6">
@@ -289,7 +293,6 @@ export default function AdminPage() {
                       </div>
                     )}
                   </div>
-
                   <div>
                     <h3 className="text-xl font-bold text-gray-800">
                       {meal.name}
@@ -311,13 +314,18 @@ export default function AdminPage() {
                   </button>
                   <button
                     onClick={() => deleteMeal(meal.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                    disabled={isDeleting === meal.id}
+                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    title={isDeleting === meal.id ? "Deleting..." : "Delete meal"}
                   >
-                    <Trash2 className="w-4 h-4" />
+                    {isDeleting === meal.id ? (
+                      <div className="w-4 h-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent"></div>
+                    ) : (
+                      <Trash2 className="w-4 h-4" />
+                    )}
                   </button>
                 </div>
               </div>
-
               <div className="grid md:grid-cols-3 gap-4 text-sm">
                 <div>
                   <p>
@@ -360,14 +368,12 @@ export default function AdminPage() {
             </div>
           ))}
         </div>
-
         {editingMeal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
               <h2 className="text-2xl font-bold mb-4">
                 {editingMeal.id ? "Edit Meal" : "Add New Meal"}
               </h2>
-
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -389,7 +395,6 @@ export default function AdminPage() {
                       required
                     />
                   </div>
-
                   <div>
                     <label className="block text-gray-700 font-bold mb-2">
                       Price
@@ -408,7 +413,6 @@ export default function AdminPage() {
                     />
                   </div>
                 </div>
-
                 <div className="mb-4">
                   <label className="block text-gray-700 font-bold mb-2">
                     Description
@@ -426,7 +430,6 @@ export default function AdminPage() {
                     required
                   />
                 </div>
-
                 <div className="mb-4">
                   <label className="block text-gray-700 font-bold mb-2">
                     Components
@@ -476,7 +479,6 @@ export default function AdminPage() {
                     ))}
                   </ul>
                 </div>
-
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   <div>
                     <label className="block text-gray-700 font-bold mb-2">
@@ -497,7 +499,6 @@ export default function AdminPage() {
                       <option value="premium">Premium</option>
                     </select>
                   </div>
-
                   <div>
                     <label className="block text-gray-700 font-bold mb-2">
                       Stock Left
@@ -516,12 +517,10 @@ export default function AdminPage() {
                     />
                   </div>
                 </div>
-
                 <div className="mb-6">
                   <label className="block text-gray-700 font-bold mb-2">
                     Meal Image
                   </label>
-
                   {editingMeal.image && (
                     <div className="mb-4">
                       <p className="text-sm text-gray-600 mb-2">
@@ -537,7 +536,6 @@ export default function AdminPage() {
                       </div>
                     </div>
                   )}
-
                   <div className="flex gap-4 mb-4">
                     <label className="flex items-center">
                       <input
@@ -570,7 +568,6 @@ export default function AdminPage() {
                       Image URL
                     </label>
                   </div>
-
                   {imageUploadMethod === "upload" && (
                     <div>
                       <input
@@ -601,7 +598,6 @@ export default function AdminPage() {
                       </p>
                     </div>
                   )}
-
                   {imageUploadMethod === "url" && (
                     <div>
                       <div className="flex gap-2">
@@ -652,7 +648,6 @@ export default function AdminPage() {
                       </p>
                     </div>
                   )}
-
                   <div className="mt-4">
                     <label className="block text-gray-700 font-medium mb-2">
                       Or enter image URL directly:
@@ -695,7 +690,6 @@ export default function AdminPage() {
                     )}
                   </div>
                 </div>
-
                 <div className="flex items-center mb-6">
                   <input
                     type="checkbox"
@@ -712,7 +706,6 @@ export default function AdminPage() {
                     Popular Meal
                   </label>
                 </div>
-
                 <div className="flex justify-end gap-4">
                   <button
                     type="button"

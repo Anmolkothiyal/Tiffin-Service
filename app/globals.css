@@ -46,6 +46,10 @@
   .section-padding {
     @apply py-16 lg:py-24;
   }
+  
+  .padding-low {
+    @apply py-10 lg:py-5;
+  }
 
   .card {
     @apply bg-white rounded-xl shadow-lg border border-gray-100 p-6 transition-all duration-200 hover:shadow-xl hover:-translate-y-1;

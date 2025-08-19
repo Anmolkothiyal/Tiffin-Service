@@ -12,12 +12,7 @@ interface Meal {
   price: number;
   originalPrice?: number;
   description: string;
-  components: {
-    rotis: number;
-    curries: number;
-    rice: number;
-    salad: number;
-  };
+  components: { [key: string]: number };
   image: string;
   category: string;
   popular: boolean;
@@ -33,10 +28,13 @@ export default function PlansPage() {
     fetch("/api/meals")
       .then((res) => res.json())
       .then((data) => {
-        setMeals(data.meals || []);
-        setFilteredMeals(data.meals || []);
+        console.log("Fetched meals:", data.meals); // Debug: Log fetched data
+        const fetchedMeals = data.meals || [];
+        setMeals(fetchedMeals);
+        setFilteredMeals(fetchedMeals);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("Error fetching meals:", error);
         // Fallback static data
         const fallbackMeals = [
           {
@@ -73,24 +71,24 @@ export default function PlansPage() {
 
   const handleFilter = (filter: string) => {
     setActiveFilter(filter);
+    console.log("Applying filter:", filter); // Debug: Log filter
+    let filtered: Meal[];
     if (filter === "All") {
-      setFilteredMeals(meals);
+      filtered = meals;
     } else {
-      const filtered = meals.filter((meal) => {
-        if (filter === "Popular") return meal.popular;
-        return meal.category.toLowerCase() === filter.toLowerCase();
-      });
-      setFilteredMeals(filtered);
+      filtered = meals.filter(
+        (meal) => meal.category.toLowerCase() === filter.toLowerCase()
+      );
     }
+    console.log("Filtered meals:", filtered); // Debug: Log filtered results
+    setFilteredMeals(filtered);
   };
 
   const formatComponents = (components: Meal["components"]) => {
-    const parts = [];
-    if (components.rotis) parts.push(`${components.rotis} Rotis`);
-    if (components.curries) parts.push(`${components.curries} Curries`);
-    if (components.rice) parts.push(`${components.rice} Rice`);
-    if (components.salad) parts.push(`${components.salad} Salad`);
-    return parts.join(" • ");
+    return Object.entries(components)
+      .filter(([_, quantity]) => quantity > 0)
+      .map(([name, quantity]) => `${quantity} ${name.charAt(0).toUpperCase() + name.slice(1)}`)
+      .join(" • ");
   };
 
   return (
@@ -100,7 +98,7 @@ export default function PlansPage() {
       {/* Hero Section */}
       <section className="pt-20 pb-12 gradient-bg text-white">
         <div className="container text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 pt-[65px]">
             Our Plans & Menu
           </h1>
           <p className="text-xl text-orange-100 max-w-3xl mx-auto">
@@ -124,7 +122,8 @@ export default function PlansPage() {
                     activeFilter === filter
                       ? "bg-primary-600 text-white"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}>
+                  }`}
+                >
                   {filter}
                 </button>
               ))}
@@ -134,13 +133,14 @@ export default function PlansPage() {
       </section>
 
       {/* Meals Grid */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding padding-low bg-gray-50">
         <div className="container">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredMeals.map((meal) => (
               <div
                 key={meal.id}
-                className="card group hover:shadow-2xl transition-all duration-300">
+                className="card group hover:shadow-2xl transition-all duration-300"
+              >
                 {meal.popular && (
                   <div className="bg-primary-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-4 inline-block">
                     ⭐ Most Popular
@@ -170,11 +170,11 @@ export default function PlansPage() {
 
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-2xl font-bold text-primary-600">
-                    ${meal.price}
+                    {meal.price}
                   </span>
                   {meal.originalPrice && (
                     <span className="text-lg text-gray-400 line-through">
-                      ${meal.originalPrice}
+                      {meal.originalPrice}
                     </span>
                   )}
                 </div>
@@ -221,13 +221,15 @@ export default function PlansPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+919627669554"
-                className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4">
+                className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4"
+              >
                 <Phone className="w-5 h-5" />
                 Call for Custom Plan
               </a>
               <a
                 href="https://wa.me/+919627669554"
-                className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4">
+                className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4"
+              >
                 WhatsApp Us
               </a>
             </div>

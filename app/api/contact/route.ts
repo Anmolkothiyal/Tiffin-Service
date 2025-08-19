@@ -232,18 +232,12 @@ export async function POST(request: NextRequest) {
     // Send email notifications
     const adminEmail = createAdminEmailTemplate(sanitizedData);
     const customerEmail = createCustomerEmailTemplate(sanitizedData);
-
-    // Send email to admin
-    console.log('Sending admin email to:', process.env.ADMIN_EMAIL || 'anmolkothiyal2021@gmail.com');
     const adminEmailResult = await sendEmail(
       process.env.ADMIN_EMAIL || 'anmolkothiyal2021@gmail.com',
       adminEmail.subject,
       adminEmail.html
     );
     console.log('Admin email result:', adminEmailResult);
-
-    // Send confirmation email to customer
-    console.log('Sending customer email to:', sanitizedData.email);
     const customerEmailResult = await sendEmail(
       sanitizedData.email,
       customerEmail.subject,

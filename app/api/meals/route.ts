@@ -1,5 +1,8 @@
+// app/api/meals/route.js
 import { NextResponse } from "next/server";
 import pool from "@/app/lib/db";
+
+export const fetchCache = "force-no-store"; // <— prevents Data Cache
 
 export async function GET() {
   try {
@@ -17,12 +20,28 @@ export async function GET() {
       stockLeft: row.stock_left,
     }));
 
-    return NextResponse.json({ meals });
+    return NextResponse.json(
+      { meals },
+      {
+        headers: {
+          "Cache-Control": "no-store, max-age=0",
+          "CDN-Cache-Control": "no-store, max-age=0",
+          "Vercel-CDN-Cache-Control": "no-store, max-age=0",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching meals:", error);
     return NextResponse.json(
       { error: "Failed to load meals" },
-      { status: 500 }
+      {
+        status: 500,
+        headers: {
+          "Cache-Control": "no-store, max-age=0",
+          "CDN-Cache-Control": "no-store, max-age=0",
+          "Vercel-CDN-Cache-Control": "no-store, max-age=0",
+        },
+      }
     );
   }
 }

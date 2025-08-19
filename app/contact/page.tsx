@@ -37,8 +37,8 @@ export default function ContactPage() {
       icon: Phone,
       title: "Phone",
       description: "Call us directly for immediate assistance",
-      value: "+1 867 888 2293",
-      action: "tel:+18678882293",
+      value: "+91 962 766 9554",
+      action: "tel:+919627669554",
       available: "Mon - Sun: 8:00 AM - 10:00 PM",
     },
     {
@@ -46,61 +46,63 @@ export default function ContactPage() {
       title: "WhatsApp",
       description: "Quick and easy messaging",
       value: "Chat with us",
-      action: "https://wa.me/18678882293",
+      action: "https://wa.me/+919627669554",
       available: "24/7 Quick Response",
     },
     {
       icon: Mail,
       title: "Email",
       description: "Send us detailed inquiries",
-      value: "info@yaanitiffin.com",
-      action: "mailto:info@yaanitiffin.com",
+      value: "info@rakshit.com",
+      action: "mailto:info@rakshit.com",
       available: "Response within 24 hours",
     },
   ];
 
-  const serviceAreas = [
-    "Toronto",
-    "Mississauga",
-    "Brampton",
-    "Scarborough",
-    "Markham",
-    "Richmond Hill",
-    "Vaughan",
-    "Oakville",
-    "Burlington",
-    "Milton",
-    "Etobicoke",
-    "North York",
-  ];
+const serviceAreas = [
+  "Premnagar",
+  "Sudhowala",
+  "Panditwari",
+  "Ballupur",
+  "Jakhan",
+  "Rajpur Road",
+  "Clement Town",
+  "Vasant Vihar",
+  "Patel Nagar",
+  "Araghar",
+  "Karanpur",
+  "Dalanwala",
+];
 
-  const faqs = [
-    {
-      question: "What are your delivery hours?",
-      answer:
-        "We deliver fresh meals daily between 11:00 AM - 2:00 PM for lunch and 6:00 PM - 9:00 PM for dinner.",
-    },
-    {
-      question: "How far in advance should I place my order?",
-      answer:
-        "We recommend placing orders at least 24 hours in advance to ensure availability, but we also accept same-day orders based on capacity.",
-    },
-    {
-      question: "Do you accommodate dietary restrictions?",
-      answer:
-        "Yes! We can customize meals for dietary restrictions including vegetarian, vegan, gluten-free, and low-sodium options. Please mention your requirements when ordering.",
-    },
-    {
-      question: "What is your cancellation policy?",
-      answer:
-        "You can cancel or modify your order up to 12 hours before the scheduled delivery time for a full refund.",
-    },
-    {
-      question: "Do you offer bulk orders for events?",
-      answer:
-        "Absolutely! We cater to events, parties, and corporate functions. Contact us at least 48 hours in advance for bulk orders.",
-    },
-  ];
+
+     const faqs = [
+     {
+       question: "Aapki delivery timing kya hai?",
+       answer:
+         "Hum daily lunch 11:00 AM - 2:00 PM aur dinner 6:00 PM - 9:00 PM ke beech tiffin deliver karte hain.",
+     },
+     {
+       question: "Order kitne time pehle dena chahiye?",
+       answer:
+         "Hum recommend karte hain ki aap apna order kam se kam 1 din pehle book karein. Lekin same-day orders bhi hum capacity ke hisaab se accept karte hain.",
+     },
+     {
+       question: "Kya aap special diet ke liye customize karte ho?",
+       answer:
+         "Bilkul! Hum vegetarian, vegan, less-oil, low-spice aur customized diet ke options provide karte hain. Bas order karte waqt batayein.",
+     },
+     {
+       question: "Agar mujhe order cancel karna ho toh?",
+       answer:
+         "Aap apna order delivery ke 12 ghante pehle tak cancel ya modify kar sakte hain aur full refund milega.",
+     },
+     {
+       question: "Kya events ya bulk orders ke liye tiffin mil sakta hai?",
+       answer:
+         "Haan, hum parties, functions, aur corporate orders ke liye catering provide karte hain. Kripya 2 din pehle hume contact karein.",
+     },
+   ];
+
 
   return (
     <main className="min-h-screen">
@@ -260,8 +262,9 @@ export default function ContactPage() {
                       Service Area
                     </h3>
                     <p className="text-gray-600 mb-3">
-                      We deliver throughout the Greater Toronto Area (GTA)
+                      Serving delicious tiffins all across Dehradun – straight to your doorstep!
                     </p>
+
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-500">
                       {serviceAreas.map((area, index) => (
                         <span
@@ -342,7 +345,7 @@ export default function ContactPage() {
 
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">Don't see your question here?</p>
-            <a href="tel:+18678882293" className="btn btn-primary">
+            <a href="tel:+919627669554" className="btn btn-primary">
               <Phone className="w-4 h-4" />
               Call Us Now
             </a>

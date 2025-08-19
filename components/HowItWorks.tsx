@@ -1,23 +1,25 @@
 export default function HowItWorks() {
-  const steps = [
-    {
-      number: 1,
-      title: "Choose Your Plan",
-      description:
-        "Select from our variety of meal plans that suit your appetite and budget",
-    },
-    {
-      number: 2,
-      title: "Place Your Order",
-      description:
-        "Call us or WhatsApp to place your order and confirm delivery details",
-    },
-    {
-      number: 3,
-      title: "Fresh Delivery",
-      description: "Enjoy hot, fresh meals delivered to your doorstep daily",
-    },
-  ];
+ const steps = [
+  {
+    number: 1,
+    title: "Pick Your Tiffin Plan",
+    description:
+      "Choose from our daily, weekly, or monthly meal plans that fit your hunger and budget.",
+  },
+  {
+    number: 2,
+    title: "Order in Minutes",
+    description:
+      "Simply call or WhatsApp us to book your tiffin and share your delivery details.",
+  },
+  {
+    number: 3,
+    title: "Enjoy Ghar-Jaisa Khana",
+    description:
+      "Get hot, fresh, and tasty meals delivered right to your doorstep every day.",
+  },
+];
+
 
   return (
     <section

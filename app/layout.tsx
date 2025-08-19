@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "YTS - Yaani Tiffin Services | Authentic Indian Meals Delivered",
+  title: "RTS - Rakshit Tiffin Services | Authentic Indian Meals Delivered",
   description:
     "Fresh, healthy, and affordable Indian meals delivered to your doorstep. Experience authentic flavors with the convenience of modern delivery throughout GTA.",
   keywords:

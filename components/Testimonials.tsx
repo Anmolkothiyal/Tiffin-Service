@@ -1,32 +1,34 @@
 import { Star } from "lucide-react";
 
 export default function Testimonials() {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Priya Sharma",
-      location: "Mississauga",
-      rating: 5,
-      review:
-        "Best tiffin service in Toronto! The food tastes just like home-cooked meals.",
-    },
-    {
-      id: 2,
-      name: "Raj Patel",
-      location: "Brampton",
-      rating: 5,
-      review:
-        "Amazing variety and always fresh. My family loves the King's Feast!",
-    },
-    {
-      id: 3,
-      name: "Meera Singh",
-      location: "Scarborough",
-      rating: 5,
-      review:
-        "Perfect portion sizes and great value for money. Highly recommended!",
-    },
-  ];
+ const testimonials = [
+  {
+    id: 1,
+    name: "Priya Sharma",
+    location: "Dehradun",
+    rating: 5,
+    review:
+      "Best tiffin service in Dehradun! The food tastes just like home-cooked meals.",
+  },
+  {
+    id: 2,
+    name: "Raj Patel",
+    location: "Dehradun",
+    rating: 5,
+    review:
+      "Hamesha taza aur swadisht khana milta hai. Bilkul ghar jaisa swaad!",
+  },
+  {
+    id: 3,
+    name: "Meera Singh",
+    location: "Dehradun",
+    rating: 5,
+    review:
+      "Perfect portion sizes and great value for money. Highly recommended!",
+  },
+];
+
+
 
   return (
     <section className="section-padding bg-gray-50">

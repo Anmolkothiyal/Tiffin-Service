@@ -65,7 +65,7 @@ export default function FeaturedOffers() {
               </div>
 
               <a
-                href="tel:+18678882293"
+                href="tel:+919627669554"
                 className={`btn w-full ${
                   offer.featured
                     ? "bg-white text-primary-600 hover:bg-gray-50"

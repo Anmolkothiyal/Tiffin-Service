@@ -126,7 +126,7 @@ export default function PopularMeals() {
 
               <p className="text-gray-600 mb-6">{meal.description}</p>
 
-              <a href="tel:+18678882293" className="btn btn-primary w-full">
+              <a href="tel:+919627669554" className="btn btn-primary w-full">
                 <Phone className="w-4 h-4" />
                 Call to Order
               </a>

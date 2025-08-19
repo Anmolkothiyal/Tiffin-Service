@@ -15,31 +15,35 @@ export default function HeroSection() {
                 <span className="text-yellow-300">Indian Meals</span>
               </h1>
               <p className="text-xl md:text-2xl text-orange-100">
-                Delivered to Your Doorstep
+                From Our Kitchen to Your Door — Fresh, Healthy, and Authentic.
               </p>
               <p className="text-lg text-orange-200 max-w-lg">
-                Experience the perfect blend of authentic flavors, convenience,
-                and quality. Fresh meals prepared daily with traditional recipes
-                and premium ingredients.
+                Enjoy wholesome meals made with love, fresh ingredients, and timeless
+                Indian recipes — delivered hot to your doorstep every day.
               </p>
             </div>
-
+          
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="tel:+18678882293"
-                className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4">
+                href="tel:+919627669554"
+                className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4"
+              >
                 <Phone className="w-5 h-5" />
                 Call Now
               </a>
               <a
-                href="https://wa.me/18678882293"
-                className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4">
+                href="https://wa.me/919627669554?text=Hello%20👋%20I%20am%20interested%20in%20Rakshit%20Tiffin%20Service.%20Please%20share%20the%20details."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4"
+              >
                 <MessageCircle className="w-5 h-5" />
-                WhatsApp
+                WhatsApp Us
               </a>
             </div>
-
-            <div className="grid grid-cols-3 gap-6 pt-8">
+          
+            {/* Optional stats section for trust */}
+            {/* <div className="grid grid-cols-3 gap-6 pt-8">
               <div className="text-center">
                 <div className="text-3xl font-bold text-yellow-300">500+</div>
                 <div className="text-sm text-orange-200">Happy Customers</div>
@@ -52,8 +56,9 @@ export default function HeroSection() {
                 <div className="text-3xl font-bold text-yellow-300">2019</div>
                 <div className="text-sm text-orange-200">Since</div>
               </div>
-            </div>
+            </div> */}
           </div>
+
 
           {/* Hero Image */}
           <div className="relative">

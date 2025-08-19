@@ -1,4 +1,4 @@
-# YTS - Yaani Tiffin Services
+# RTS - Rakshit Tiffin Services
 
 A modern Next.js website for an Indian tiffin service with admin functionality to manage recipes through a static JSON file.
 

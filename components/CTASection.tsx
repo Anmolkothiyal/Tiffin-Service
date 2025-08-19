@@ -15,33 +15,36 @@ export default function CTASection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+18678882293"
+              href="tel:+919627669554"
               className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4">
               <Phone className="w-5 h-5" />
-              Call Now: +1 867 888 2293
+              Call Now: +91 96276 69554
             </a>
             <a
-              href="https://wa.me/18678882293"
+              href="https://wa.me/+919627669554"
               className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4">
               <MessageCircle className="w-5 h-5" />
               WhatsApp Us
             </a>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <h3 className="text-lg font-semibold mb-2">📞 Phone Support</h3>
-              <p className="text-orange-200">Mon - Sun: 8:00 AM - 10:00 PM</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-2">🚚 Free Delivery</h3>
-              <p className="text-orange-200">Throughout Greater Toronto Area</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-2">⭐ Quality Assured</h3>
-              <p className="text-orange-200">Fresh meals prepared daily</p>
-            </div>
-          </div>
+       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+           <div>
+             <h3 className="text-lg font-semibold mb-2">📞 Phone Support</h3>
+             <p className="text-orange-200">Mon - Sun: 8:00 AM - 10:00 PM</p>
+           </div>
+           <div>
+             <h3 className="text-lg font-semibold mb-2">🚚 Free Delivery</h3>
+             <p className="text-orange-200">
+               Premnagar, Sudhowala & Panditwari (Dehradun)
+             </p>
+           </div>
+           <div>
+             <h3 className="text-lg font-semibold mb-2">⭐ Quality Assured</h3>
+             <p className="text-orange-200">Fresh meals prepared daily</p>
+           </div>
+         </div>
+
         </div>
       </div>
     </section>

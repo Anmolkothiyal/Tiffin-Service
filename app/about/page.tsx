@@ -11,26 +11,26 @@ export default function AboutPage() {
     { number: "1000+", label: "Meals Delivered Daily" },
   ];
 
-  const team = [
-    {
-      name: "Priya Sharma",
-      role: "Head Chef",
-      image: "/images/team-sarah.jpg",
-      description: "15+ years of experience in authentic Indian cuisine",
-    },
-    {
-      name: "Raj Patel",
-      role: "Operations Manager",
-      image: "/images/team-raj.jpg",
-      description: "Ensures fresh and timely delivery across GTA",
-    },
-    {
-      name: "Meera Singh",
-      role: "Quality Control",
-      image: "/images/team-priya.jpg",
-      description: "Maintains the highest standards of food quality",
-    },
-  ];
+  // const team = [
+  //   {
+  //     name: "Priya Sharma",
+  //     role: "Head Chef",
+  //     image: "/images/team-sarah.jpg",
+  //     description: "15+ years of experience in authentic Indian cuisine",
+  //   },
+  //   {
+  //     name: "Raj Patel",
+  //     role: "Operations Manager",
+  //     image: "/images/team-raj.jpg",
+  //     description: "Ensures fresh and timely delivery across GTA",
+  //   },
+  //   {
+  //     name: "Meera Singh",
+  //     role: "Quality Control",
+  //     image: "/images/team-priya.jpg",
+  //     description: "Maintains the highest standards of food quality",
+  //   },
+  // ];
 
   return (
     <main className="min-h-screen">
@@ -49,49 +49,48 @@ export default function AboutPage() {
 
       {/* Our Story */}
       <section className="section-padding bg-white">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-                Our Story
-              </h2>
-              <div className="space-y-4 text-gray-600 text-lg">
-                <p>
-                  Started in 2019 by a group of passionate food lovers, YTS
-                  (Yaani Tiffin Services) was born from a simple idea: everyone
-                  deserves access to fresh, authentic, and delicious Indian
-                  home-cooked meals.
-                </p>
-                <p>
-                  What began as a small operation serving a handful of families
-                  in Toronto has now grown to serve over 500 happy customers
-                  across the Greater Toronto Area. Our commitment to quality,
-                  authenticity, and customer satisfaction has remained
-                  unchanged.
-                </p>
-                <p>
-                  Every meal we prepare is crafted with love, using traditional
-                  recipes passed down through generations, and the freshest
-                  ingredients sourced locally. We believe that food is not just
-                  nourishment for the body, but also for the soul.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <Image
-                src="/images/about-story.jpg"
-                alt="Our kitchen"
-                width={600}
-                height={400}
-                className="rounded-2xl shadow-lg"
-              />
-            </div>
-          </div>
+  <div className="container">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+          Our Story
+        </h2>
+        <div className="space-y-4 text-gray-600 text-lg">
+          <p>
+            Started in 2025 by Rakshit and a team of passionate food lovers, 
+            YTS (Rakshit Tiffin Services) was born from a simple idea: 
+            everyone deserves access to fresh, homemade, and authentic Indian meals in Dehradun.
+          </p>
+          <p>
+            What began as a small tiffin service in Premnagar has now grown to 
+            serve students, working professionals, and families across 
+            Dehradun. Our commitment to quality, taste, and timely delivery 
+            has remained the same since day one.
+          </p>
+          <p>
+            Every meal we prepare is crafted with love, using traditional 
+            recipes passed down through generations and fresh ingredients 
+            sourced locally. For us, food is not just about filling your 
+            stomach—it’s about giving you the comfort of “ghar ka khana.”
+          </p>
         </div>
-      </section>
+      </div>
+      <div className="relative">
+        <Image
+          src="/images/about-story.jpg"
+          alt="Our kitchen"
+          width={600}
+          height={400}
+          className="rounded-2xl shadow-lg"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Stats */}
-      <section className="section-padding bg-gray-50">
+      {/* <section className="section-padding bg-gray-50">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -113,72 +112,73 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Our Values */}
       <section className="section-padding bg-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Our Values
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The principles that guide everything we do
-            </p>
-          </div>
+  <div className="container">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        Our Values
+      </h2>
+      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        The traditions and principles that make Rakshit Tiffin Services special
+      </p>
+    </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-                <Heart className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">
-                Made with Love
-              </h3>
-              <p className="text-gray-600">
-                Every dish is prepared with care and passion, just like home
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">
-                Quality First
-              </h3>
-              <p className="text-gray-600">
-                We use only the finest ingredients and maintain the highest
-                standards
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">
-                Community Focus
-              </h3>
-              <p className="text-gray-600">
-                Building connections and serving our community with dedication
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-                <Clock className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">
-                Always Fresh
-              </h3>
-              <p className="text-gray-600">
-                Prepared fresh daily and delivered at the perfect time
-              </p>
-            </div>
-          </div>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="text-center">
+        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+          <Heart className="w-8 h-8 text-white" />
         </div>
-      </section>
+        <h3 className="text-xl font-semibold text-gray-800 mb-3">
+          Pyaar Se Bana Khana
+        </h3>
+        <p className="text-gray-600">
+          Every meal is prepared with love and care — just like “ghar ka khana”.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+          <Award className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-3">
+          Quality First
+        </h3>
+        <p className="text-gray-600">
+          We use fresh ingredients and maintain authentic homemade taste, 
+          no shortcuts.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+          <Users className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-3">
+          Community Spirit
+        </h3>
+        <p className="text-gray-600">
+          Serving students, professionals, and families across Dehradun with trust.
+        </p>
+      </div>
+
+      <div className="text-center">
+        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+          <Clock className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-3">
+          Hamesha Fresh
+        </h3>
+        <p className="text-gray-600">
+          Meals cooked fresh daily and delivered warm, right on time.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Meet Our Team */}
       {/* <section className="section-padding bg-gray-50">
@@ -228,9 +228,9 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+18678882293"
+              href="tel:+919627669554"
               className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4">
-              Call Now: +1 867 888 2293
+              Call Now: +91 962 766 9554
             </a>
             <a
               href="/plans"

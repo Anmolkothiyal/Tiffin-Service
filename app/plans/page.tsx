@@ -183,13 +183,13 @@ export default function PlansPage() {
                   {meal.description}
                 </p>
 
-                <a href="tel:+18678882293" className="btn btn-primary w-full">
+                <a href="tel:+919627669554" className="btn btn-primary w-full">
                   <Phone className="w-4 h-4" />
                   Call to Order
                 </a>
 
                 <p className="text-xs text-gray-500 text-center mt-3">
-                  Questions? Tap to call +1 867 888 2293
+                  Questions? Tap to call +91 96276 69554
                 </p>
               </div>
             ))}
@@ -220,13 +220,13 @@ export default function PlansPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:+18678882293"
+                href="tel:+919627669554"
                 className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4">
                 <Phone className="w-5 h-5" />
                 Call for Custom Plan
               </a>
               <a
-                href="https://wa.me/18678882293"
+                href="https://wa.me/+919627669554"
                 className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4">
                 WhatsApp Us
               </a>

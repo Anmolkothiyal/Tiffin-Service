@@ -50,9 +50,9 @@ export default function Header() {
         <nav className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-primary-600">YTS</div>
+            <div className="text-2xl font-bold text-primary-600">RTS</div>
             <div className="text-sm text-gray-600 hidden sm:block">
-              YAANI TIFFIN SERVICES
+              Rakshit TIFFIN SERVICES
             </div>
           </Link>
 
@@ -76,7 +76,7 @@ export default function Header() {
             <Link href="/contact" className={getLinkClass("/contact")}>
               Contact
             </Link>
-            <Link
+            {/* <Link
               href="/admin"
               className={
                 pathname === "/admin"
@@ -84,12 +84,12 @@ export default function Header() {
                   : "text-primary-600 hover:text-primary-700 font-medium transition-colors"
               }>
               Admin
-            </Link>
+            </Link> */}
           </div>
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center space-x-4">
-            <a href="tel:+18678882293" className="btn btn-primary">
+            <a href="tel:+919627669554" className="btn btn-primary">
               <Phone className="w-4 h-4" />
               Call Now
             </a>
@@ -141,7 +141,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}>
                 Contact
               </Link>
-              <Link
+              {/* <Link
                 href="/admin"
                 className={
                   pathname === "/admin"
@@ -150,8 +150,8 @@ export default function Header() {
                 }
                 onClick={() => setIsMenuOpen(false)}>
                 Admin
-              </Link>
-              <a href="tel:+18678882293" className="btn btn-primary w-fit">
+              </Link> */}
+              <a href="tel:+919627669554" className="btn btn-primary w-fit">
                 <Phone className="w-4 h-4" />
                 Call Now
               </a>

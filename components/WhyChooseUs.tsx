@@ -2,28 +2,33 @@ import { Award, Leaf, Truck, Utensils } from "lucide-react";
 
 export default function WhyChooseUs() {
   const features = [
-    {
-      icon: Utensils,
-      title: "Authentic Recipes",
-      description:
-        "Traditional Indian recipes prepared with love and authentic spices",
-    },
-    {
-      icon: Leaf,
-      title: "Fresh Daily",
-      description: "Meals prepared fresh every day with the finest ingredients",
-    },
-    {
-      icon: Truck,
-      title: "Free Delivery",
-      description: "Complimentary delivery throughout the Greater Toronto Area",
-    },
-    {
-      icon: Award,
-      title: "Quality Assured",
-      description: "Premium quality meals that exceed your expectations",
-    },
-  ];
+     {
+       icon: Utensils,
+       title: "Authentic Flavors",
+       description:
+         "Relish traditional Indian meals crafted with time-honored recipes and rich spices.",
+     },
+     {
+       icon: Leaf,
+       title: "Freshly Prepared",
+       description:
+         "Every meal is cooked daily using fresh, locally sourced ingredients for a homely taste.",
+     },
+     {
+       icon: Truck,
+       title: "Free Home Delivery",
+       description:
+         "Enjoy convenient, complimentary doorstep delivery right on time, every day.",
+     },
+     {
+       icon: Award,
+       title: "Uncompromising Quality",
+       description:
+         "Premium standards in taste, hygiene, and service — guaranteed in every tiffin.",
+     },
+   ];
+
+
 
   return (
     <section id="about" className="section-padding bg-white">

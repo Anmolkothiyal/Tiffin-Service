@@ -274,96 +274,106 @@ export default function AdminPage() {
             </button>
           </div>
         </div>
-        <div className="grid gap-6">
+        <div className="grid gap-4">
           {meals.map((meal) => (
-            <div key={meal.id} className="bg-white rounded-lg shadow-lg p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex gap-4">
-                  <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                    {meal.image ? (
-                      <Image
-                        src={meal.image}
-                        alt={meal.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <ImageIcon className="w-8 h-8" />
+            <div key={meal.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              <div className="p-5">
+                {/* Header Section with Image and Title */}
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex gap-4">
+                    <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0 shadow-md">
+                      {meal.image ? (
+                        <Image
+                          src={meal.image}
+                          alt={meal.name}
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          <ImageIcon className="w-8 h-8" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-xl font-bold text-gray-800 leading-tight truncate">
+                          {meal.name}
+                        </h3>
+                        {meal.popular && (
+                          <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full border border-amber-200 flex-shrink-0">
+                            ⭐ Popular
+                          </span>
+                        )}
                       </div>
-                    )}
+                      <div className="flex items-center gap-3 mb-2">
+                        <p className="text-xl font-bold text-green-600">₹{meal.price}</p>
+                        <div className="flex items-center gap-1.5 text-sm">
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                            meal.category === 'premium' 
+                              ? 'bg-purple-100 text-purple-800 border border-purple-200'
+                              : meal.category === 'popular' 
+                              ? 'bg-blue-100 text-blue-800 border border-blue-200'
+                              : 'bg-green-100 text-green-800 border border-green-200'
+                          }`}>
+                            {meal.category.charAt(0).toUpperCase() + meal.category.slice(1)}
+                          </span>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                            meal.stockLeft > 10 
+                              ? 'bg-green-100 text-green-800'
+                              : meal.stockLeft > 0 
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-red-100 text-red-800'
+                          }`}>
+                            {meal.stockLeft} left
+                          </span>
+                        </div>
+                      </div>
+                      {/* Description inline */}
+                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">{meal.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-800">
-                      {meal.name}
-                    </h3>
-                    <p className="text-gray-600">{meal.price}</p>
-                    {meal.popular && (
-                      <span className="inline-block bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full mt-1">
-                        ⭐ Popular
-                      </span>
-                    )}
+                  <div className="flex gap-1.5 flex-shrink-0">
+                    <button
+                      onClick={() => setEditingMeal(meal)}
+                      className="p-2.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:shadow-md border border-transparent hover:border-blue-200"
+                      title="Edit meal"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => deleteMeal(meal.id)}
+                      disabled={isDeleting === meal.id}
+                      className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed border border-transparent hover:border-red-200"
+                      title={isDeleting === meal.id ? "Deleting..." : "Delete meal"}
+                    >
+                      {isDeleting === meal.id ? (
+                        <div className="w-4 h-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent"></div>
+                      ) : (
+                        <Trash2 className="w-4 h-4" />
+                      )}
+                    </button>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setEditingMeal(meal)}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => deleteMeal(meal.id)}
-                    disabled={isDeleting === meal.id}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                    title={isDeleting === meal.id ? "Deleting..." : "Delete meal"}
-                  >
-                    {isDeleting === meal.id ? (
-                      <div className="w-4 h-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent"></div>
-                    ) : (
-                      <Trash2 className="w-4 h-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-              <div className="grid md:grid-cols-3 gap-4 text-sm">
-                <div>
-                  <p>
-                    <strong>Description:</strong> {meal.description}
-                  </p>
-                  <p>
-                    <strong>Category:</strong> {meal.category}
-                  </p>
-                  <p>
-                    <strong>Stock Left:</strong> {meal.stockLeft}
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <strong>Components:</strong>
-                  </p>
-                  <ul className="ml-4">
-                    {Object.entries(meal.components).map(([name, quantity]) => (
-                      <li key={name}>
-                        {name.charAt(0).toUpperCase() + name.slice(1)}: {quantity}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p>
-                    <strong>Image:</strong>
-                  </p>
-                  <p className="text-xs text-gray-500 break-all">
-                    {meal.image.length > 50
-                      ? `${meal.image.substring(0, 50)}...`
-                      : meal.image}
-                  </p>
-                  <p className="text-xs mt-1">
-                    <strong>Type:</strong>{" "}
-                    {meal.image.startsWith("/uploads/") ? "Local" : "External URL"}
-                  </p>
-                </div>
+
+                {/* Components Section - More Compact */}
+                {Object.keys(meal.components).length > 0 && (
+                  <div className="border-t pt-3">
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Components</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {Object.entries(meal.components).map(([name, quantity]) => (
+                        <div key={name} className="inline-flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md text-sm">
+                          <span className="text-gray-700 font-medium">
+                            {name.charAt(0).toUpperCase() + name.slice(1)}
+                          </span>
+                          <span className="font-bold text-gray-900 bg-white px-1.5 py-0.5 rounded text-xs">
+                            {quantity}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}

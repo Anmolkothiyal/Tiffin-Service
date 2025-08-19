@@ -1,25 +1,24 @@
 export default function HowItWorks() {
- const steps = [
-  {
-    number: 1,
-    title: "Pick Your Tiffin Plan",
-    description:
-      "Choose from our daily, weekly, or monthly meal plans that fit your hunger and budget.",
-  },
-  {
-    number: 2,
-    title: "Order in Minutes",
-    description:
-      "Simply call or WhatsApp us to book your tiffin and share your delivery details.",
-  },
-  {
-    number: 3,
-    title: "Enjoy Ghar-Jaisa Khana",
-    description:
-      "Get hot, fresh, and tasty meals delivered right to your doorstep every day.",
-  },
-];
-
+  const steps = [
+    {
+      number: 1,
+      title: "Pick Your Tiffin Plan",
+      description:
+        "Choose from our daily, weekly, or monthly meal plans that fit your hunger and budget.",
+    },
+    {
+      number: 2,
+      title: "Order in Minutes",
+      description:
+        "Simply call or WhatsApp us to book your tiffin and share your delivery details.",
+    },
+    {
+      number: 3,
+      title: "Enjoy Ghar-Jaisa Khana",
+      description:
+        "Get hot, fresh, and tasty meals delivered right to your doorstep every day.",
+    },
+  ];
 
   return (
     <section
@@ -38,9 +37,7 @@ export default function HowItWorks() {
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((step, index) => (
             <div key={step.number} className="text-center relative">
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-primary-200 -translate-y-1/2" />
-              )}
+              <div className="hidden md:block absolute top-8 center-full w-full h-0.5 bg-primary-200 -translate-y-1/2" />
 
               <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center text-white text-xl font-bold relative z-10">
                 {step.number}

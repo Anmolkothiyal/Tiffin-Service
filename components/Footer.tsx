@@ -10,11 +10,13 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <div className="text-2xl font-bold text-primary-400">RTS</div>
-              <div className="text-sm text-gray-300">Rakshit TIFFIN SERVICES</div>
+              <div className="text-sm text-gray-300">
+                Rakshit TIFFIN SERVICES
+              </div>
             </div>
-           <p className="text-gray-300 mb-6 max-w-md">
-              Ghar jaisa swaad, roz taza aur sehatmand khana — ab Dehradun mein seedha aapke ghar tak. 
-              Swad aur suvidha, dono ek saath.
+            <p className="text-gray-300 mb-6 max-w-md">
+              Ghar jaisa swaad, roz taza aur sehatmand khana — ab Dehradun mein
+              seedha aapke ghar tak. Swad aur suvidha, dono ek saath.
             </p>
 
             <div className="flex space-x-4">
@@ -22,7 +24,10 @@ export default function Footer() {
                 <Phone className="w-4 h-4" />
                 Call Now
               </a>
-              <a href="https://wa.me/+919627669554" className="btn btn-outline">
+              <a
+                href="https://wa.me/+919627669554"
+                target="_blank"
+                className="btn btn-outline">
                 <MessageCircle className="w-4 h-4" />
                 WhatsApp
               </a>
@@ -87,6 +92,7 @@ export default function Footer() {
                 <MessageCircle className="w-4 h-4 text-primary-400" />
                 <a
                   href="https://wa.me/+919627669554"
+                  target="_blank"
                   className="text-gray-300 hover:text-white transition-colors">
                   WhatsApp
                 </a>
@@ -100,11 +106,9 @@ export default function Footer() {
                 <span className="text-gray-300">Mon - Sun: 8AM - 10PM</span>
               </div>
             </div>
-           <p className="text-primary-400 font-semibold mt-4">
-             🎉 Enjoy Free Home Delivery Anywhere in Dehradun!
-           </p>
-           
-
+            <p className="text-primary-400 font-semibold mt-4">
+              🎉 Enjoy Free Home Delivery Anywhere in Dehradun!
+            </p>
           </div>
         </div>
       </div>
@@ -113,10 +117,10 @@ export default function Footer() {
       <div className="border-t border-gray-700">
         <div className="container py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
-           <p className="text-gray-400 text-sm">
-             © {new Date().getFullYear()} Rakshit Tiffin Services. All rights reserved. | Made with ❤️
-             for authentic Indian cuisine lovers.
-           </p>
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} Rakshit Tiffin Services. All rights
+              reserved. | Made with ❤️ for authentic Indian cuisine lovers.
+            </p>
 
             {/* <Link
               href="/admin"

@@ -37,7 +37,7 @@ export default function AboutPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-20 pb-12 gradient-bg text-white">
+      <section className="pt-12 pb-12 gradient-bg text-white">
         <div className="container text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
           <p className="text-xl text-orange-100 max-w-3xl mx-auto">
@@ -49,45 +49,45 @@ export default function AboutPage() {
 
       {/* Our Story */}
       <section className="section-padding bg-white">
-  <div className="container">
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
-      <div>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-          Our Story
-        </h2>
-        <div className="space-y-4 text-gray-600 text-lg">
-          <p>
-            Started in 2025 by Rakshit and a team of passionate food lovers, 
-            YTS (Rakshit Tiffin Services) was born from a simple idea: 
-            everyone deserves access to fresh, homemade, and authentic Indian meals in Dehradun.
-          </p>
-          <p>
-            What began as a small tiffin service in Premnagar has now grown to 
-            serve students, working professionals, and families across 
-            Dehradun. Our commitment to quality, taste, and timely delivery 
-            has remained the same since day one.
-          </p>
-          <p>
-            Every meal we prepare is crafted with love, using traditional 
-            recipes passed down through generations and fresh ingredients 
-            sourced locally. For us, food is not just about filling your 
-            stomach—it’s about giving you the comfort of “ghar ka khana.”
-          </p>
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+                Our Story
+              </h2>
+              <div className="space-y-4 text-gray-600 text-lg">
+                <p>
+                  Started in 2025 by Rakshit and a team of passionate food
+                  lovers, YTS (Rakshit Tiffin Services) was born from a simple
+                  idea: everyone deserves access to fresh, homemade, and
+                  authentic Indian meals in Dehradun.
+                </p>
+                <p>
+                  What began as a small tiffin service in Premnagar has now
+                  grown to serve students, working professionals, and families
+                  across Dehradun. Our commitment to quality, taste, and timely
+                  delivery has remained the same since day one.
+                </p>
+                <p>
+                  Every meal we prepare is crafted with love, using traditional
+                  recipes passed down through generations and fresh ingredients
+                  sourced locally. For us, food is not just about filling your
+                  stomach—it’s about giving you the comfort of “ghar ka khana.”
+                </p>
+              </div>
+            </div>
+            <div className="relative">
+              <Image
+                src="/images/about-story.jpg"
+                alt="Our kitchen"
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-lg"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="relative">
-        <Image
-          src="/images/about-story.jpg"
-          alt="Our kitchen"
-          width={600}
-          height={400}
-          className="rounded-2xl shadow-lg"
-        />
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Stats */}
       {/* <section className="section-padding bg-gray-50">
@@ -116,69 +116,71 @@ export default function AboutPage() {
 
       {/* Our Values */}
       <section className="section-padding bg-white">
-  <div className="container">
-    <div className="text-center mb-16">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-        Our Values
-      </h2>
-      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-        The traditions and principles that make Rakshit Tiffin Services special
-      </p>
-    </div>
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              Our Values
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              The traditions and principles that make Rakshit Tiffin Services
+              special
+            </p>
+          </div>
 
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-          <Heart className="w-8 h-8 text-white" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+                <Heart className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                Pyaar Se Bana Khana
+              </h3>
+              <p className="text-gray-600">
+                Every meal is prepared with love and care — just like “ghar ka
+                khana”.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                Quality First
+              </h3>
+              <p className="text-gray-600">
+                We use fresh ingredients and maintain authentic homemade taste,
+                no shortcuts.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                Community Spirit
+              </h3>
+              <p className="text-gray-600">
+                Serving students, professionals, and families across Dehradun
+                with trust.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                Hamesha Fresh
+              </h3>
+              <p className="text-gray-600">
+                Meals cooked fresh daily and delivered warm, right on time.
+              </p>
+            </div>
+          </div>
         </div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-3">
-          Pyaar Se Bana Khana
-        </h3>
-        <p className="text-gray-600">
-          Every meal is prepared with love and care — just like “ghar ka khana”.
-        </p>
-      </div>
-
-      <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-          <Award className="w-8 h-8 text-white" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-3">
-          Quality First
-        </h3>
-        <p className="text-gray-600">
-          We use fresh ingredients and maintain authentic homemade taste, 
-          no shortcuts.
-        </p>
-      </div>
-
-      <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-          <Users className="w-8 h-8 text-white" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-3">
-          Community Spirit
-        </h3>
-        <p className="text-gray-600">
-          Serving students, professionals, and families across Dehradun with trust.
-        </p>
-      </div>
-
-      <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-6 gradient-bg rounded-full flex items-center justify-center">
-          <Clock className="w-8 h-8 text-white" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-3">
-          Hamesha Fresh
-        </h3>
-        <p className="text-gray-600">
-          Meals cooked fresh daily and delivered warm, right on time.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Meet Our Team */}
       {/* <section className="section-padding bg-gray-50">

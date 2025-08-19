@@ -87,7 +87,10 @@ export default function PlansPage() {
   const formatComponents = (components: Meal["components"]) => {
     return Object.entries(components)
       .filter(([_, quantity]) => quantity > 0)
-      .map(([name, quantity]) => `${quantity} ${name.charAt(0).toUpperCase() + name.slice(1)}`)
+      .map(
+        ([name, quantity]) =>
+          `${quantity} ${name.charAt(0).toUpperCase() + name.slice(1)}`
+      )
       .join(" • ");
   };
 
@@ -96,9 +99,9 @@ export default function PlansPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-20 pb-12 gradient-bg text-white">
+      <section className="pt-12 pb-12 gradient-bg text-white">
         <div className="container text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 pt-[65px]">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 ">
             Our Plans & Menu
           </h1>
           <p className="text-xl text-orange-100 max-w-3xl mx-auto">
@@ -122,8 +125,7 @@ export default function PlansPage() {
                     activeFilter === filter
                       ? "bg-primary-600 text-white"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
+                  }`}>
                   {filter}
                 </button>
               ))}
@@ -139,15 +141,13 @@ export default function PlansPage() {
             {filteredMeals.map((meal) => (
               <div
                 key={meal.id}
-                className="card group hover:shadow-2xl transition-all duration-300"
-              >
-                {meal.popular && (
-                  <div className="bg-primary-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-4 inline-block">
-                    ⭐ Most Popular
-                  </div>
-                )}
-
+                className="card group hover:shadow-2xl transition-all duration-300 relative">
                 <div className="relative overflow-hidden rounded-lg mb-4">
+                  {meal.popular && (
+                    <div className="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-md text-sm font-bold z-10">
+                      ⭐ Most Popular
+                    </div>
+                  )}
                   <Image
                     src={meal.image}
                     alt={meal.name}
@@ -221,15 +221,14 @@ export default function PlansPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+919627669554"
-                className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4"
-              >
+                className="btn bg-white text-primary-600 hover:bg-gray-50 font-semibold text-lg px-8 py-4">
                 <Phone className="w-5 h-5" />
                 Call for Custom Plan
               </a>
               <a
                 href="https://wa.me/+919627669554"
-                className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4"
-              >
+                target="_blank"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4">
                 WhatsApp Us
               </a>
             </div>

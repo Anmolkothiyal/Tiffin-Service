@@ -36,33 +36,33 @@ export default function PopularMeals() {
       })
       .catch(() => {
         // Fallback static data
-        const fallbackMeals = [
-          {
-            id: 2,
-            name: "King's Feast",
-            price: 199,
-            description:
-              "Our most popular meal with generous portions and variety",
-            components: { rotis: 5, curries: 2, rice: 1, salad: 1 },
-            image: "/images/kings-feast.jpg",
-            category: "popular",
-            popular: true,
-            stockLeft: 30,
-          },
-          {
-            id: 3,
-            name: "King's Feast Deluxe",
-            price: 229,
-            description:
-              "Enhanced version of our popular feast with extra curries",
-            components: { rotis: 5, curries: 3, rice: 1, salad: 1 },
-            image: "/images/kings-feast-deluxe.jpg",
-            category: "premium",
-            popular: true,
-            stockLeft: 25,
-          },
-        ];
-        setMeals(fallbackMeals);
+        // const fallbackMeals = [
+        //   {
+        //     id: 2,
+        //     name: "King's Feast",
+        //     price: 199,
+        //     description:
+        //       "Our most popular meal with generous portions and variety",
+        //     components: { rotis: 5, curries: 2, rice: 1, salad: 1 },
+        //     image: "/images/kings-feast.jpg",
+        //     category: "popular",
+        //     popular: true,
+        //     stockLeft: 30,
+        //   },
+        //   {
+        //     id: 3,
+        //     name: "King's Feast Deluxe",
+        //     price: 229,
+        //     description:
+        //       "Enhanced version of our popular feast with extra curries",
+        //     components: { rotis: 5, curries: 3, rice: 1, salad: 1 },
+        //     image: "/images/kings-feast-deluxe.jpg",
+        //     category: "premium",
+        //     popular: true,
+        //     stockLeft: 25,
+        //   },
+        // ];
+        // setMeals(fallbackMeals);
       });
   }, []);
 

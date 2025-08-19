@@ -1,5 +1,4 @@
 import CTASection from "@/components/CTASection";
-import FeaturedOffers from "@/components/FeaturedOffers";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
@@ -15,7 +14,7 @@ export default function Home() {
       <ScrollToSection />
       <Header />
       <HeroSection />
-      <FeaturedOffers />
+      {/* <FeaturedOffers /> */}
       <WhyChooseUs />
       <PopularMeals />
       <HowItWorks />

@@ -2,40 +2,38 @@ import { Award, Leaf, Truck, Utensils } from "lucide-react";
 
 export default function WhyChooseUs() {
   const features = [
-     {
-       icon: Utensils,
-       title: "Authentic Flavors",
-       description:
-         "Relish traditional Indian meals crafted with time-honored recipes and rich spices.",
-     },
-     {
-       icon: Leaf,
-       title: "Freshly Prepared",
-       description:
-         "Every meal is cooked daily using fresh, locally sourced ingredients for a homely taste.",
-     },
-     {
-       icon: Truck,
-       title: "Free Home Delivery",
-       description:
-         "Enjoy convenient, complimentary doorstep delivery right on time, every day.",
-     },
-     {
-       icon: Award,
-       title: "Uncompromising Quality",
-       description:
-         "Premium standards in taste, hygiene, and service — guaranteed in every tiffin.",
-     },
-   ];
-
-
+    {
+      icon: Utensils,
+      title: "Authentic Flavors",
+      description:
+        "Relish traditional Indian meals crafted with time-honored recipes and rich spices.",
+    },
+    {
+      icon: Leaf,
+      title: "Freshly Prepared",
+      description:
+        "Every meal is cooked daily using fresh, locally sourced ingredients for a homely taste.",
+    },
+    {
+      icon: Truck,
+      title: "Free Home Delivery",
+      description:
+        "Enjoy convenient, complimentary doorstep delivery right on time, every day.",
+    },
+    {
+      icon: Award,
+      title: "Uncompromising Quality",
+      description:
+        "Premium standards in taste, hygiene, and service — guaranteed in every tiffin.",
+    },
+  ];
 
   return (
     <section id="about" className="section-padding bg-white">
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Why Choose YTS?
+            Why Choose RTS?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Experience the perfect blend of authentic flavors, convenience, and

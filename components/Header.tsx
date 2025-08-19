@@ -3,12 +3,23 @@
 import { Menu, Phone, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 100); // Make header sticky after 100px scroll
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const getLinkClass = (href: string) => {
     const isActive = pathname === href;
@@ -33,7 +44,7 @@ export default function Header() {
       // If we're already on home page, scroll to the section
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const headerHeight = 80; // pt-20 = 5rem = 80px
+        const headerHeight = isScrolled ? 80 : 0; // Only account for header height if it's sticky
         const targetPosition = targetElement.offsetTop - headerHeight;
 
         window.scrollTo({
@@ -45,14 +56,19 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+    <header
+      className={`w-full transition-all duration-300 z-50 border-b border-gray-100 ${
+        isScrolled
+          ? "fixed top-0 bg-white/95 backdrop-blur-sm shadow-md"
+          : "relative bg-white"
+      }`}>
       <div className="container">
         <nav className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="text-2xl font-bold text-primary-600">RTS</div>
             <div className="text-sm text-gray-600 hidden sm:block">
-              Rakshit TIFFIN SERVICES
+              RAKSHIT TIFFIN SERVICES
             </div>
           </Link>
 

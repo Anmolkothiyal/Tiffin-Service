@@ -2,8 +2,17 @@
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { Clock, Mail, MapPin, MessageCircle, Phone, Send, CheckCircle, AlertCircle } from "lucide-react";
-import { useState, useEffect } from "react";
+import {
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Send,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -16,15 +25,15 @@ export default function ContactPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
-    type: 'success' | 'error' | null;
+    type: "success" | "error" | null;
     message: string;
-  }>({ type: null, message: '' });
+  }>({ type: null, message: "" });
 
   // Handle auto-close of popup
   useEffect(() => {
     if (submitStatus.type) {
       const timer = setTimeout(() => {
-        setSubmitStatus({ type: null, message: '' });
+        setSubmitStatus({ type: null, message: "" });
       }, 5000);
       return () => clearTimeout(timer);
     }
@@ -33,13 +42,13 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: '' });
+    setSubmitStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -48,20 +57,28 @@ export default function ContactPage() {
 
       if (data.success) {
         setSubmitStatus({
-          type: 'success',
-          message: data.message || 'Thank you for your message! We\'ll get back to you soon.'
+          type: "success",
+          message:
+            data.message ||
+            "Thank you for your message! We'll get back to you soon.",
         });
-        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
       } else {
         setSubmitStatus({
-          type: 'error',
-          message: data.error || 'Something went wrong. Please try again.'
+          type: "error",
+          message: data.error || "Something went wrong. Please try again.",
         });
       }
     } catch (error) {
       setSubmitStatus({
-        type: 'error',
-        message: 'Network error. Please check your connection and try again.'
+        type: "error",
+        message: "Network error. Please check your connection and try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -154,7 +171,7 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-20 pb-12 gradient-bg text-white">
+      <section className="pt-12 pb-12 gradient-bg text-white">
         <div className="container text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
           <p className="text-xl text-orange-100 max-w-3xl mx-auto">
@@ -323,7 +340,8 @@ export default function ContactPage() {
                       Service Area
                     </h3>
                     <p className="text-gray-600 mb-3">
-                      Serving delicious tiffins all across Dehradun – straight to your doorstep!
+                      Serving delicious tiffins all across Dehradun – straight
+                      to your doorstep!
                     </p>
 
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-500">
@@ -419,12 +437,11 @@ export default function ContactPage() {
         <div className="fixed top-4 right-4 z-50 animate-slide-in">
           <div
             className={`p-4 rounded-lg shadow-lg flex items-center space-x-3 max-w-sm ${
-              submitStatus.type === 'success'
-                ? 'bg-green-600 text-white'
-                : 'bg-red-600 text-white'
-            }`}
-          >
-            {submitStatus.type === 'success' ? (
+              submitStatus.type === "success"
+                ? "bg-green-600 text-white"
+                : "bg-red-600 text-white"
+            }`}>
+            {submitStatus.type === "success" ? (
               <CheckCircle className="w-6 h-6 flex-shrink-0" />
             ) : (
               <AlertCircle className="w-6 h-6 flex-shrink-0" />

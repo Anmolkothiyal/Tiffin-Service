@@ -22,29 +22,29 @@ export default function CTASection() {
             </a>
             <a
               href="https://wa.me/+919627669554"
+              target="_blank"
               className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold text-lg px-8 py-4">
               <MessageCircle className="w-5 h-5" />
               WhatsApp Us
             </a>
           </div>
 
-       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-           <div>
-             <h3 className="text-lg font-semibold mb-2">📞 Phone Support</h3>
-             <p className="text-orange-200">Mon - Sun: 8:00 AM - 10:00 PM</p>
-           </div>
-           <div>
-             <h3 className="text-lg font-semibold mb-2">🚚 Free Delivery</h3>
-             <p className="text-orange-200">
-               Premnagar, Sudhowala & Panditwari (Dehradun)
-             </p>
-           </div>
-           <div>
-             <h3 className="text-lg font-semibold mb-2">⭐ Quality Assured</h3>
-             <p className="text-orange-200">Fresh meals prepared daily</p>
-           </div>
-         </div>
-
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <h3 className="text-lg font-semibold mb-2">📞 Phone Support</h3>
+              <p className="text-orange-200">Mon - Sun: 8:00 AM - 10:00 PM</p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">🚚 Free Delivery</h3>
+              <p className="text-orange-200">
+                Premnagar, Sudhowala & Panditwari (Dehradun)
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">⭐ Quality Assured</h3>
+              <p className="text-orange-200">Fresh meals prepared daily</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

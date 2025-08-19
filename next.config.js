@@ -10,19 +10,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "unsplash.com",
       },
-      // Allow any external image domains for admin uploaded URLs
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "**", // allow any https image
       },
       {
         protocol: "http",
-        hostname: "**",
+        hostname: "**", // allow any http image
       },
     ],
   },
 
-  // 🔴 Disable caching globally
+  // 🔴 Disable all CDN/browser caching globally
   async headers() {
     return [
       {
@@ -34,6 +33,11 @@ const nextConfig = {
         ],
       },
     ];
+  },
+
+  // 🔴 Disable Next.js Data Cache globally
+  experimental: {
+    fetchCache: "force-no-store", // ensures fetch() never caches data
   },
 };
 

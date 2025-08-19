@@ -21,6 +21,20 @@ const nextConfig = {
       },
     ],
   },
+
+  // 🔴 Disable caching globally
+  async headers() {
+    return [
+      {
+        source: "/:path*", // applies to ALL routes (pages + API)
+        headers: [
+          { key: "Cache-Control", value: "no-store, max-age=0" },
+          { key: "CDN-Cache-Control", value: "no-store, max-age=0" },
+          { key: "Vercel-CDN-Cache-Control", value: "no-store, max-age=0" },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

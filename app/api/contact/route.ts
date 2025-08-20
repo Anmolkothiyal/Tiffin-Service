@@ -137,7 +137,7 @@ function createCustomerEmailTemplate(data: any) {
 }
 
 // Send email function with better error handling
-async function sendEmail(to: string, subject: string, html: string) {
+export async function sendEmail(to: string, subject: string, html: string) {
   try {
     const mailOptions = {
       from: `"Rakshit Tiffin Service" <${

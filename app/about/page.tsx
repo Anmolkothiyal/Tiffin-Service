@@ -41,14 +41,13 @@ export default function AboutPage() {
         <div className="container text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
           <p className="text-xl text-orange-100 max-w-3xl mx-auto">
-            Bringing the authentic taste of home-cooked Indian meals to your
-            doorstep since 2019
+            Started in 2025 – Bringing Ghar Jaisa Swad, Straight to Your Doorstep 🍲
           </p>
         </div>
       </section>
 
       {/* Our Story */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-white pt-12">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>

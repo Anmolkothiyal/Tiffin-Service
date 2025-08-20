@@ -11,7 +11,7 @@ export default function Footer() {
             <div className="flex items-center space-x-2 mb-4">
               <div className="text-2xl font-bold text-primary-400">RTS</div>
               <div className="text-sm text-gray-300">
-                Rakshit TIFFIN SERVICES
+                RAKSHIT TIFFIN SERVICES
               </div>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">

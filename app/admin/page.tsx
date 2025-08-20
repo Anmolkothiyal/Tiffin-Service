@@ -13,8 +13,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-// Simple authentication - in production, use proper auth
-const ADMIN_PASSWORD = "admin123";
+import toast, { Toaster } from "react-hot-toast";
+
 interface Meal {
   id: number;
   name: string;
@@ -27,30 +27,77 @@ interface Meal {
   popular: boolean;
   stockLeft: number;
 }
+
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [showOtpInput, setShowOtpInput] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [meals, setMeals] = useState<Meal[]>([]);
   const [editingMeal, setEditingMeal] = useState<Meal | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState<number | null>(null);
-  const [imageUploadMethod, setImageUploadMethod] = useState<"upload" | "url">(
-    "upload"
-  );
+  const [imageUploadMethod, setImageUploadMethod] = useState<"upload" | "url">("upload");
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [newComponentName, setNewComponentName] = useState("");
   const [newComponentQuantity, setNewComponentQuantity] = useState(0);
-  const handleLogin = (e: React.FormEvent) => {
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+
+  const ADMIN_EMAIL = "anmolkothiyal2021@gmail.com";
+
+  const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      loadMeals();
-    } else {
-      alert("Invalid password");
+    setIsSendingOtp(true);
+    const sendToast = toast.loading("Sending OTP...");
+    try {
+      const response = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setShowOtpInput(true);
+        toast.success(`OTP sent to ${ADMIN_EMAIL}!`, { id: sendToast });
+      } else {
+        toast.error(result.error || "Failed to send OTP", { id: sendToast });
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      toast.error("Failed to send OTP. Please try again.", { id: sendToast });
+    } finally {
+      setIsSendingOtp(false);
     }
   };
+
+  const handleVerifyOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const verifyToast = toast.loading("Verifying OTP...");
+    try {
+      const response = await fetch("/api/auth/otp/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ otp }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setIsAuthenticated(true);
+        loadMeals();
+        toast.success("Authentication successful!", { id: verifyToast });
+      } else {
+        toast.error(result.error || "Invalid OTP", { id: verifyToast });
+      }
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
+      toast.error("Failed to verify OTP. Please try again.", { id: verifyToast });
+    }
+  };
+
   const loadMeals = async () => {
     try {
       const response = await fetch("/api/meals");
@@ -58,10 +105,13 @@ export default function AdminPage() {
       setMeals(data.meals || []);
     } catch (error) {
       console.error("Failed to load meals:", error);
+      toast.error("Failed to load meals.");
     }
   };
+
   const saveMeals = async () => {
     setIsLoading(true);
+    const saveToast = toast.loading("Saving meals...");
     try {
       const response = await fetch("/api/meals/save", {
         method: "POST",
@@ -71,25 +121,25 @@ export default function AdminPage() {
         body: JSON.stringify({ meals }),
       });
       if (response.ok) {
-        alert("Meals updated successfully!");
+        toast.success("Meals updated successfully!", { id: saveToast });
       } else {
-        alert("Failed to update meals");
+        toast.error("Failed to update meals", { id: saveToast });
       }
     } catch (error) {
       console.error("Failed to save meals:", error);
-      alert("Failed to save meals");
+      toast.error("Failed to save meals", { id: saveToast });
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Updated delete function to use the API
   const deleteMeal = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this meal?")) {
+    if (!window.confirm("Are you sure you want to delete this meal?")) {
       return;
     }
 
     setIsDeleting(id);
+    const deleteToast = toast.loading("Deleting meal...");
     try {
       const response = await fetch(`/api/meals?id=${id}`, {
         method: "DELETE",
@@ -97,17 +147,16 @@ export default function AdminPage() {
 
       if (response.ok) {
         const result = await response.json();
-        // Remove the meal from local state
         setMeals(meals.filter((m) => m.id !== id));
-        alert("Meal deleted successfully!");
+        toast.success("Meal deleted successfully!", { id: deleteToast });
         console.log("Deleted meal:", result.deletedMeal);
       } else {
         const error = await response.json();
-        alert(`Failed to delete meal: ${error.error}`);
+        toast.error(`Failed to delete meal: ${error.error}`, { id: deleteToast });
       }
     } catch (error) {
       console.error("Error deleting meal:", error);
-      alert("Failed to delete meal. Please try again.");
+      toast.error("Failed to delete meal. Please try again.", { id: deleteToast });
     } finally {
       setIsDeleting(null);
     }
@@ -115,6 +164,7 @@ export default function AdminPage() {
 
   const handleImageUpload = async (file: File) => {
     setIsUploadingImage(true);
+    const uploadToast = toast.loading("Uploading image...");
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -124,24 +174,28 @@ export default function AdminPage() {
       });
       const result = await response.json();
       if (result.success) {
+        toast.success("Image uploaded successfully!", { id: uploadToast });
         return result.imageUrl;
       } else {
         throw new Error(result.error);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert(
+      toast.error(
         `Failed to upload image: ${
           error instanceof Error ? error.message : "Unknown error"
-        }`
+        }`,
+        { id: uploadToast }
       );
       return null;
     } finally {
       setIsUploadingImage(false);
     }
   };
+
   const handleImageUrl = async (url: string) => {
     setIsUploadingImage(true);
+    const downloadToast = toast.loading("Downloading image...");
     try {
       const response = await fetch("/api/download-image", {
         method: "POST",
@@ -152,22 +206,25 @@ export default function AdminPage() {
       });
       const result = await response.json();
       if (result.success) {
+        toast.success("Image downloaded successfully!", { id: downloadToast });
         return result.imageUrl;
       } else {
         throw new Error(result.error);
       }
     } catch (error) {
       console.error("Error downloading image:", error);
-      alert(
+      toast.error(
         `Failed to download image: ${
           error instanceof Error ? error.message : "Unknown error"
-        }`
+        }`,
+        { id: downloadToast }
       );
       return null;
     } finally {
       setIsUploadingImage(false);
     }
   };
+
   const addNewMeal = () => {
     const newMeal: Meal = {
       id: Math.max(...meals.map((m) => m.id), 0) + 1,
@@ -182,11 +239,15 @@ export default function AdminPage() {
     };
     setMeals([...meals, newMeal]);
     setEditingMeal(newMeal);
+    toast.success("New meal added!");
   };
+
   const updateMeal = (updatedMeal: Meal) => {
     setMeals(meals.map((m) => (m.id === updatedMeal.id ? updatedMeal : m)));
     setEditingMeal(null);
+    toast.success("Meal updated successfully!");
   };
+
   const addComponent = () => {
     if (newComponentName.trim() && newComponentQuantity >= 0) {
       setEditingMeal({
@@ -198,60 +259,90 @@ export default function AdminPage() {
       });
       setNewComponentName("");
       setNewComponentQuantity(0);
+      toast.success("Component added!");
     }
   };
+
   const removeComponent = (componentName: string) => {
     const { [componentName]: _, ...rest } = editingMeal!.components;
     setEditingMeal({
       ...editingMeal!,
       components: rest,
     });
+    toast.success("Component removed!");
   };
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <h1 className="text-2xl font-bold text-center mb-6">Admin Login</h1>
-          <form onSubmit={handleLogin}>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  placeholder="Enter admin password"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700">
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
+          {!showOtpInput ? (
+            <form onSubmit={handleSendOtp}>
+              <div className="mb-4">
+                <p className="text-gray-700 text-sm mb-2">
+                  OTP will be sent to: <strong>{ADMIN_EMAIL}</strong>
+                </p>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
-                Default password: admin123
-              </p>
-            </div>
-            <button type="submit" className="btn btn-primary w-full">
-              Login
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="btn btn-primary w-full"
+                disabled={isSendingOtp}
+              >
+                {isSendingOtp ? "Sending OTP..." : "Send OTP"}
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleVerifyOtp}>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  OTP
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    placeholder="Enter OTP"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Check {ADMIN_EMAIL} for the OTP
+                </p>
+              </div>
+              <button type="submit" className="btn btn-primary w-full">
+                Verify OTP
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowOtpInput(false)}
+                className="btn btn-outline w-full mt-2"
+              >
+                Back to Send OTP
+              </button>
+            </form>
+          )}
         </div>
       </div>
     );
   }
+
   return (
     <div className="min-h-screen bg-gray-100">
+      <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
       <div className="container py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Recipe Management
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">Recipe Management</h1>
           <div className="flex gap-4">
             <button onClick={addNewMeal} className="btn btn-secondary">
               <Plus className="w-4 h-4" />
@@ -260,13 +351,15 @@ export default function AdminPage() {
             <button
               onClick={saveMeals}
               disabled={isLoading}
-              className="btn btn-primary">
+              className="btn btn-primary"
+            >
               <Save className="w-4 h-4" />
               {isLoading ? "Saving..." : "Save Changes"}
             </button>
             <button
               onClick={() => setIsAuthenticated(false)}
-              className="btn btn-outline">
+              className="btn btn-outline"
+            >
               Logout
             </button>
           </div>
@@ -275,9 +368,9 @@ export default function AdminPage() {
           {meals.map((meal) => (
             <div
               key={meal.id}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden"
+            >
               <div className="p-5">
-                {/* Header Section with Image and Title */}
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-4">
                     <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0 shadow-md">
@@ -317,7 +410,8 @@ export default function AdminPage() {
                                 : meal.category === "popular"
                                 ? "bg-blue-100 text-blue-800 border border-blue-200"
                                 : "bg-green-100 text-green-800 border border-green-200"
-                            }`}>
+                            }`}
+                          >
                             {meal.category.charAt(0).toUpperCase() +
                               meal.category.slice(1)}
                           </span>
@@ -328,12 +422,12 @@ export default function AdminPage() {
                                 : meal.stockLeft > 0
                                 ? "bg-yellow-100 text-yellow-800"
                                 : "bg-red-100 text-red-800"
-                            }`}>
+                            }`}
+                          >
                             {meal.stockLeft} left
                           </span>
                         </div>
                       </div>
-                      {/* Description inline */}
                       <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
                         {meal.description}
                       </p>
@@ -343,16 +437,16 @@ export default function AdminPage() {
                     <button
                       onClick={() => setEditingMeal(meal)}
                       className="p-2.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:shadow-md border border-transparent hover:border-blue-200"
-                      title="Edit meal">
+                      title="Edit meal"
+                    >
                       <Edit3 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => deleteMeal(meal.id)}
                       disabled={isDeleting === meal.id}
                       className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed border border-transparent hover:border-red-200"
-                      title={
-                        isDeleting === meal.id ? "Deleting..." : "Delete meal"
-                      }>
+                      title={isDeleting === meal.id ? "Deleting..." : "Delete meal"}
+                    >
                       {isDeleting === meal.id ? (
                         <div className="w-4 h-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent"></div>
                       ) : (
@@ -361,28 +455,25 @@ export default function AdminPage() {
                     </button>
                   </div>
                 </div>
-
-                {/* Components Section - More Compact */}
                 {Object.keys(meal.components).length > 0 && (
                   <div className="border-t pt-3">
                     <h4 className="text-sm font-semibold text-gray-700 mb-2">
                       Components
                     </h4>
                     <div className="flex flex-wrap gap-2">
-                      {Object.entries(meal.components).map(
-                        ([name, quantity]) => (
-                          <div
-                            key={name}
-                            className="inline-flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md text-sm">
-                            <span className="text-gray-700 font-medium">
-                              {name.charAt(0).toUpperCase() + name.slice(1)}
-                            </span>
-                            <span className="font-bold text-gray-900 bg-white px-1.5 py-0.5 rounded text-xs">
-                              {quantity}
-                            </span>
-                          </div>
-                        )
-                      )}
+                      {Object.entries(meal.components).map(([name, quantity]) => (
+                        <div
+                          key={name}
+                          className="inline-flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md text-sm"
+                        >
+                          <span className="text-gray-700 font-medium">
+                            {name.charAt(0).toUpperCase() + name.slice(1)}
+                          </span>
+                          <span className="font-bold text-gray-900 bg-white px-1.5 py-0.5 rounded text-xs">
+                            {quantity}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -400,7 +491,8 @@ export default function AdminPage() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   updateMeal(editingMeal);
-                }}>
+                }}
+              >
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-gray-700 font-bold mb-2">
@@ -477,32 +569,30 @@ export default function AdminPage() {
                       type="button"
                       onClick={addComponent}
                       className="btn btn-secondary px-4"
-                      disabled={
-                        !newComponentName.trim() || newComponentQuantity < 0
-                      }>
+                      disabled={!newComponentName.trim() || newComponentQuantity < 0}
+                    >
                       <Plus className="w-4 h-4" />
                       Add
                     </button>
                   </div>
                   <ul className="ml-4">
-                    {Object.entries(editingMeal.components).map(
-                      ([name, quantity]) => (
-                        <li
-                          key={name}
-                          className="flex justify-between items-center mb-1">
-                          <span>
-                            {name.charAt(0).toUpperCase() + name.slice(1)}:{" "}
-                            {quantity}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => removeComponent(name)}
-                            className="text-red-600 hover:text-red-800">
-                            <X className="w-4 h-4" />
-                          </button>
-                        </li>
-                      )
-                    )}
+                    {Object.entries(editingMeal.components).map(([name, quantity]) => (
+                      <li
+                        key={name}
+                        className="flex justify-between items-center mb-1"
+                      >
+                        <span>
+                          {name.charAt(0).toUpperCase() + name.slice(1)}: {quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => removeComponent(name)}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
@@ -518,7 +608,8 @@ export default function AdminPage() {
                           category: e.target.value,
                         })
                       }
-                      className="w-full px-3 py-2 border rounded-lg">
+                      className="w-full px-3 py-2 border rounded-lg"
+                    >
                       <option value="budget">Budget</option>
                       <option value="popular">Popular</option>
                       <option value="premium">Premium</option>
@@ -548,9 +639,7 @@ export default function AdminPage() {
                   </label>
                   {editingMeal.image && (
                     <div className="mb-4">
-                      <p className="text-sm text-gray-600 mb-2">
-                        Current Image:
-                      </p>
+                      <p className="text-sm text-gray-600 mb-2">Current Image:</p>
                       <div className="relative w-32 h-32 rounded-lg overflow-hidden border">
                         <Image
                           src={editingMeal.image}
@@ -567,11 +656,7 @@ export default function AdminPage() {
                         type="radio"
                         value="upload"
                         checked={imageUploadMethod === "upload"}
-                        onChange={(e) =>
-                          setImageUploadMethod(
-                            e.target.value as "upload" | "url"
-                          )
-                        }
+                        onChange={(e) => setImageUploadMethod(e.target.value as "upload" | "url")}
                         className="mr-2"
                       />
                       <Upload className="w-4 h-4 mr-1" />
@@ -582,11 +667,7 @@ export default function AdminPage() {
                         type="radio"
                         value="url"
                         checked={imageUploadMethod === "url"}
-                        onChange={(e) =>
-                          setImageUploadMethod(
-                            e.target.value as "upload" | "url"
-                          )
-                        }
+                        onChange={(e) => setImageUploadMethod(e.target.value as "upload" | "url")}
                         className="mr-2"
                       />
                       <LinkIcon className="w-4 h-4 mr-1" />
@@ -614,9 +695,7 @@ export default function AdminPage() {
                         disabled={isUploadingImage}
                       />
                       {isUploadingImage && (
-                        <p className="text-sm text-blue-600 mt-1">
-                          Uploading image...
-                        </p>
+                        <p className="text-sm text-blue-600 mt-1">Uploading image...</p>
                       )}
                       <p className="text-xs text-gray-500 mt-1">
                         Supported formats: JPEG, PNG, WebP. Max size: 5MB
@@ -638,9 +717,7 @@ export default function AdminPage() {
                           type="button"
                           onClick={async () => {
                             if (imageUrl.trim()) {
-                              const downloadedUrl = await handleImageUrl(
-                                imageUrl.trim()
-                              );
+                              const downloadedUrl = await handleImageUrl(imageUrl.trim());
                               if (downloadedUrl) {
                                 setEditingMeal({
                                   ...editingMeal,
@@ -651,7 +728,8 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={isUploadingImage || !imageUrl.trim()}
-                          className="btn btn-secondary px-4">
+                          className="btn btn-secondary px-4"
+                        >
                           {isUploadingImage ? (
                             <span>Processing...</span>
                           ) : (
@@ -678,11 +756,7 @@ export default function AdminPage() {
                     </label>
                     <input
                       type="url"
-                      value={
-                        editingMeal.image.startsWith("/")
-                          ? ""
-                          : editingMeal.image
-                      }
+                      value={editingMeal.image.startsWith("/") ? "" : editingMeal.image}
                       onChange={(e) =>
                         setEditingMeal({
                           ...editingMeal,
@@ -706,7 +780,8 @@ export default function AdminPage() {
                               image: "",
                             })
                           }
-                          className="text-sm text-red-600 hover:text-red-800">
+                          className="text-sm text-red-600 hover:text-red-800"
+                        >
                           Clear & Use URL
                         </button>
                       </div>
@@ -725,15 +800,14 @@ export default function AdminPage() {
                     }
                     className="mr-2"
                   />
-                  <label className="text-gray-700 font-bold">
-                    Popular Meal
-                  </label>
+                  <label className="text-gray-700 font-bold">Popular Meal</label>
                 </div>
                 <div className="flex justify-end gap-4">
                   <button
                     type="button"
                     onClick={() => setEditingMeal(null)}
-                    className="btn btn-outline">
+                    className="btn btn-outline"
+                  >
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-primary">

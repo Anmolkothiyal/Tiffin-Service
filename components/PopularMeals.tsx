@@ -115,11 +115,11 @@ export default function PopularMeals() {
 
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-2xl font-bold text-primary-600">
-                  ${meal.price}
+                  ₹{meal.price}
                 </span>
                 {meal.originalPrice && (
                   <span className="text-lg text-gray-400 line-through">
-                    ${meal.originalPrice}
+                    ₹{meal.originalPrice}
                   </span>
                 )}
               </div>
